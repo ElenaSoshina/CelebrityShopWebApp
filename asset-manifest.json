@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Backend-TG-App-Demo/static/css/main.ad39960c.css",
-    "main.js": "/Backend-TG-App-Demo/static/js/main.1534e369.js",
-    "index.html": "/Backend-TG-App-Demo/index.html",
-    "main.ad39960c.css.map": "/Backend-TG-App-Demo/static/css/main.ad39960c.css.map",
-    "main.1534e369.js.map": "/Backend-TG-App-Demo/static/js/main.1534e369.js.map"
+    "main.css": "/CelebrityShopWebApp/static/css/main.ad39960c.css",
+    "main.js": "/CelebrityShopWebApp/static/js/main.1534e369.js",
+    "index.html": "/CelebrityShopWebApp/index.html",
+    "main.ad39960c.css.map": "/CelebrityShopWebApp/static/css/main.ad39960c.css.map",
+    "main.1534e369.js.map": "/CelebrityShopWebApp/static/js/main.1534e369.js.map"
   },
   "entrypoints": [
     "static/css/main.ad39960c.css",
