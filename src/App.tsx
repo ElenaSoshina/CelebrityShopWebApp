@@ -19,7 +19,7 @@ function App() {
     };
 
     try {
-      const response = await fetch('https://easygo.duckdns.org/api/v1/send-message', {
+      const response = await fetch('https://celebrity-strike.duckdns.org/api/v1/send-message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
