@@ -2,7 +2,7 @@
   "name": "telegram-miniapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vnsemkin.github.io/Backend-TG-App-Demo",
+  "homepage": "https://elenasoshina.github.io/CelebrityShopWebApp/",
   "dependencies": {
     "@testing-library/react": "^16.2.0",
     "@types/node": "^16.18.70",
