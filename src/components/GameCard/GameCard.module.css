@@ -1,0 +1,83 @@
+.card {
+  flex: 0 0 auto;
+  width: 280px;
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+  padding: 10px;
+  position: relative;
+  border: double 1px transparent;
+  background-image: none;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px; 
+  padding: 1px;
+  background: linear-gradient(90deg, #00c2ff, #7000ff, #ff00ff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+.imageWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.7));
+  pointer-events: none;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s;
+}
+
+.card:hover .imageWrapper img {
+  transform: scale(1.05);
+}
+
+.gameName {
+  padding: 1rem;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover .gameName {
+  transform: translateY(-2px);
+} 

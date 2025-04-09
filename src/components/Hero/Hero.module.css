@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
+.heroSection {
+  position: relative;
+  /* height: 80vh; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem;
+  padding-top: 80px;
+  /* background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(139,0,0,0.3)); */
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: radial-gradient(circle at center, rgba(255,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%); */
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroTitle {
+  font-family: 'Play', sans-serif;
+  font-size: 3.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-transform: none;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.heroSubtitle {
+  font-family: 'Play', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #00c2ff, #7000ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 194, 255, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.emoji {
+  -webkit-text-fill-color: initial;
+  background: none;
+  text-shadow: none;
+  margin-left: 5px;
+}
+
+.heroDescription {
+  font-family: 'Play', sans-serif;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    /* height: 60vh; */
+
+  }
+
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+
+  .heroSubtitle {
+    font-size: 28px;
+  }
+
+  .heroDescription {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    /* height: 50vh; */
+  }
+
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 28px;
+  }
+
+  .heroDescription {
+    font-size: 26px;
+  }
+} 

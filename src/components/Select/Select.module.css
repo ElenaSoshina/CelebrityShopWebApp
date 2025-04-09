@@ -1,0 +1,110 @@
+.select {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 1em;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #00c2ff;
+  box-shadow: 0 0 0 2px rgba(0, 194, 255, 0.2);
+}
+
+.select option {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.8rem;
+}
+
+.select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: #fff;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(90deg, #00c2ff, #7000ff);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.selectButton:hover {
+  background: linear-gradient(90deg, #00d2ff, #8000ff);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.arrow {
+  font-size: 0.75rem;
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #2B1055, #7597DE);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  margin-top: 0.25rem;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.selected {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 500;
+} 
