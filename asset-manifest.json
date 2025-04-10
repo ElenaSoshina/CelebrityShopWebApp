@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/CelebrityShopWebApp/static/css/main.5c855aee.css",
-    "main.js": "/CelebrityShopWebApp/static/js/main.3d56123c.js",
+    "main.css": "/CelebrityShopWebApp/static/css/main.d7a31eaa.css",
+    "main.js": "/CelebrityShopWebApp/static/js/main.1756a025.js",
     "static/media/mobile-legents.jpg": "/CelebrityShopWebApp/static/media/mobile-legents.91a8e1ac5f50e0c810ae.jpg",
     "static/media/arena-breakout.jpg": "/CelebrityShopWebApp/static/media/arena-breakout.33310efe0d5adfb4b3d0.jpg",
     "static/media/impact.jpg": "/CelebrityShopWebApp/static/media/impact.fdd88e95a9c96ff3b0da.jpg",
@@ -20,17 +20,20 @@
     "static/media/delta-force.jpg": "/CelebrityShopWebApp/static/media/delta-force.91e547d2056da904b449.jpg",
     "static/media/lostlight.jpg": "/CelebrityShopWebApp/static/media/lostlight.c02749f23073dc407446.jpg",
     "static/media/hayday.jpg": "/CelebrityShopWebApp/static/media/hayday.58f749385c57b8841eb2.jpg",
+    "static/media/like.jpg": "/CelebrityShopWebApp/static/media/like.91b5b18296b55c61ee5d.jpg",
     "static/media/apple.jpg": "/CelebrityShopWebApp/static/media/apple.3ea2dc7146f3aeab2983.jpg",
     "static/media/free-fire.jpg": "/CelebrityShopWebApp/static/media/free-fire.33338b905de6f74014ef.jpg",
     "static/media/boombeach.jpg": "/CelebrityShopWebApp/static/media/boombeach.c3afad045a63a449cecf.jpg",
     "static/media/standoff2.jpg": "/CelebrityShopWebApp/static/media/standoff2.a2fe484704b5e08e30b0.jpg",
     "static/media/pubg-mobile.jpg": "/CelebrityShopWebApp/static/media/pubg-mobile.f1b03576508ae62ab08b.jpg",
+    "static/media/telegram.jpg": "/CelebrityShopWebApp/static/media/telegram.070d6254428a0460bd6e.jpg",
+    "static/media/steam.jpg": "/CelebrityShopWebApp/static/media/steam.43688541053f77d7c429.jpg",
     "index.html": "/CelebrityShopWebApp/index.html",
-    "main.5c855aee.css.map": "/CelebrityShopWebApp/static/css/main.5c855aee.css.map",
-    "main.3d56123c.js.map": "/CelebrityShopWebApp/static/js/main.3d56123c.js.map"
+    "main.d7a31eaa.css.map": "/CelebrityShopWebApp/static/css/main.d7a31eaa.css.map",
+    "main.1756a025.js.map": "/CelebrityShopWebApp/static/js/main.1756a025.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c855aee.css",
-    "static/js/main.3d56123c.js"
+    "static/css/main.d7a31eaa.css",
+    "static/js/main.1756a025.js"
   ]
 }
