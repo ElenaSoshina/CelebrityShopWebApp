@@ -302,8 +302,7 @@ body {
 
 .app {
   min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+  background: #000;
 }
 
 html {
@@ -330,4 +329,7 @@ body {
 main {
   flex: 1;
   padding-top: 80px; /* Высота хедера */
+  width: 100%;
+  overflow-x: hidden;
+  padding-bottom: 2rem;
 }

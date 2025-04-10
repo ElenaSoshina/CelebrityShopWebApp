@@ -5,7 +5,7 @@ const Hero: React.FC = () => {
   return (
     <section id="hero" className={styles.heroSection}>
       <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>Геймерская вселенная,</h1>
+        <h1 className={styles.heroTitle}>Геймерская вселенная</h1>
         <p className={styles.heroSubtitle}>
           созданная своими для своих<span className={styles.emoji}> 🎮</span>
         </p>

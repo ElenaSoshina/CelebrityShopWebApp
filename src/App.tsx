@@ -10,6 +10,7 @@ import { PCGames } from './components/PCGames/PCGames';
 import { GameStore } from './components/GameStore/GameStore';
 import { ShooterGames } from './components/ShooterGames/ShooterGames';
 import { BloodStrike } from './pages/BloodStrike/BloodStrike';
+import { Subscriptions } from './components/Subscriptions/Subscriptions';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                 <GiftCards />
                 <PCGames />
                 <ShooterGames />
+                <Subscriptions />
               </>
             } />
             <Route path="/game/blood-strike" element={<BloodStrike />} />

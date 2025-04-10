@@ -10,7 +10,9 @@ export const GameStore: React.FC = () => {
     { id: 'all', name: 'Все', section: 'hero' },
     { id: 'supercell', name: 'SuperSell игры', section: 'supersell' },
     { id: 'giftcards', name: 'Подарочные карты', section: 'giftcards' },
-    { id: 'pc', name: 'Компьютерные игры', section: 'pcgames' }
+    { id: 'pc', name: 'Компьютерные игры', section: 'pcgames' },
+    { id: 'shooters', name: 'Шутеры и стратегии', section: 'shooters' },
+    { id: 'subscriptions', name: 'Подписки', section: 'subscriptions' }
   ];
 
   const handleScroll = () => {
