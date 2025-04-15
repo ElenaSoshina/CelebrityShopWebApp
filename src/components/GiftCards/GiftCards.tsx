@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './GiftCards.module.css';
 import apple from '../../assets/images/gift-cards/apple.jpg';
 import roblox from '../../assets/images/gift-cards/roblox.jpg';
@@ -7,30 +8,16 @@ import fortnite from '../../assets/images/gift-cards/fortnite.jpg';
 
 const cards = [
   {
-    id: 1,
+    id: 'apple-store',
     name: 'Apple Store/iTunes',
     image: apple
   },
-  {
-    id: 2,
-    name: 'ROBLOX',
-    image: roblox
-  },
-  {
-    id: 3,
-    name: 'Valorant',
-    image: valorant
-  },
-  {
-    id: 4,
-    name: 'Fortnite',
-    image: fortnite
-  }
 ];
 
 export const GiftCards: React.FC = () => {
   const [activeDot, setActiveDot] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const scrollToCard = (index: number) => {
     if (carouselRef.current) {
@@ -43,6 +30,10 @@ export const GiftCards: React.FC = () => {
       });
       setActiveDot(index);
     }
+  };
+
+  const handleCardClick = (id: string) => {
+    navigate(`/game/${id}`);
   };
 
   useEffect(() => {
@@ -68,7 +59,12 @@ export const GiftCards: React.FC = () => {
       <div className={styles.cardsWrapper}>
         <div className={styles.cardsCarousel} ref={carouselRef}>
           {cards.map((card) => (
-            <div key={card.id} className={styles.cardItem}>
+            <div 
+              key={card.id} 
+              className={styles.cardItem}
+              onClick={() => handleCardClick(card.id)}
+              style={{ cursor: 'pointer' }}
+            >
               <div className={styles.imageWrapper}>
                 <img src={card.image} alt={card.name} />
               </div>

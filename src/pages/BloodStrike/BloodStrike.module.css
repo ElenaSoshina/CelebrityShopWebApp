@@ -41,7 +41,7 @@
 .selects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 10px;
 }
 
 .selectGroup {
@@ -58,7 +58,7 @@
 .actions {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 10px;
 }
 
 .buyButton {
@@ -107,4 +107,11 @@
 
 .imageWrapper:hover .gameImage {
   transform: scale(1.05);
+}
+
+.error {
+  color: #ff4444;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
 } 

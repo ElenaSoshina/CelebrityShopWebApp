@@ -1,42 +1,62 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './SuperSellGames.module.css';
 import brawlStars from '../../assets/images/supersell/brawl-stars.jpg';
 import clashRoyale from '../../assets/images/supersell/clashroyale.jpg';
 import clashOfClans from '../../assets/images/supersell/clashofclans.jpg';
 import hayDay from '../../assets/images/supersell/hayday.jpg';
 import boomBeach from '../../assets/images/supersell/boombeach.jpg';
+import squadBuster from '../../assets/images/supersell/squad-buster.jpg';
+import moco from '../../assets/images/supersell/mo-co.webp';
 
-const games = [
+interface Game {
+  id: string;
+  name: string;
+  image: string;
+}
+
+const games: Game[] = [
   {
-    id: 1,
+    id: 'brawl-stars',
     name: 'Brawl Stars',
     image: brawlStars
   },
   {
-    id: 2,
+    id: 'clash-royale',
     name: 'Clash Royale',
     image: clashRoyale
   },
   {
-    id: 3,
+    id: 'clash-of-clans',
     name: 'Clash of Clans',
     image: clashOfClans
   },
   {
-    id: 4,
+    id: 'hay-day',
     name: 'Hay Day',
     image: hayDay
   },
   {
-    id: 5,
+    id: 'boom-beach',
     name: 'Boom Beach',
     image: boomBeach
-  }
+  },
+  {
+    id: 'squad-buster',
+    name: 'Squad Buster',
+    image: squadBuster,
+  },
+  {
+    id: 'mo-co',
+    name: 'MO.CO',
+    image: moco
+  },
 ];
 
 export const SuperSellGames: React.FC = () => {
   const [activeDot, setActiveDot] = useState(0);
   const gamesRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleScroll = () => {
     if (gamesRef.current) {
@@ -58,13 +78,21 @@ export const SuperSellGames: React.FC = () => {
     }
   };
 
+  const handleGameClick = (id: string) => {
+    navigate(`/game/${id}`);
+  };
+
   return (
     <section id="supersell" className={styles.superSellGames}>
       <h2 className={styles.title}>SuperSell игры</h2>
       <div className={styles.gamesWrapper}>
         <div className={styles.gamesCarousel} ref={gamesRef} onScroll={handleScroll}>
           {games.map(game => (
-            <div key={game.id} className={styles.gameCard}>
+            <div 
+              key={game.id} 
+              className={styles.gameCard}
+              onClick={() => handleGameClick(game.id)}
+            >
               <div className={styles.imageWrapper}>
                 <img src={game.image} alt={game.name} />
               </div>

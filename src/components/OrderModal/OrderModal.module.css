@@ -12,14 +12,29 @@
 }
 
 .modalContent {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2B1055 100%);
-  padding: 2rem;
+  background: #1a1a1a;
   border-radius: 12px;
+  padding: 2rem;
   width: 90%;
   max-width: 500px;
   position: relative;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.modalContent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #00c2ff, #7000ff, #ff00ff);
 }
 
 .closeButton {
@@ -111,4 +126,49 @@
   opacity: 0.5;
   cursor: not-allowed;
   background: #666;
+}
+
+.errorMessage {
+  color: #ff4444;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
 } 
+
+.successPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #00c2ff;
+  border-radius: 12px;
+  padding: 1.5rem 2.5rem;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+  z-index: 1002;
+  box-shadow: 0 0 30px rgba(0, 194, 255, 0.3);
+  backdrop-filter: blur(5px);
+  width: 90%;
+  max-width: 500px;
+}
+
+.successPopup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 1px;
+  background: linear-gradient(90deg, #00c2ff, #7000ff, #ff00ff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}

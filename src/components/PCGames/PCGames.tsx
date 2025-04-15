@@ -1,36 +1,55 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './PCGames.module.css';
 import marvel from '../../assets/images/pc-games/marvel-rivals.jpg';
 import delta from '../../assets/images/pc-games/delta-force.jpg';
 import arena from '../../assets/images/pc-games/arena.jpg';
 import pubg from '../../assets/images/pc-games/battle.jpg';
-
+import fortnite from '../../assets/images/pc-games/fortnite.jpg';
+import valorant from '../../assets/images/pc-games/valorant.jpg';
+import roblox from '../../assets/images/pc-games/roblox.jpg';
 const games = [
   {
-    id: 1,
+    id: 'marvel-rivals',
     name: 'Marvel Rivals',
     image: marvel
   },
   {
-    id: 2,
+    id: 'delta-force',
     name: 'Delta Force',
     image: delta
   },
   {
-    id: 3,
+    id: 'arena-breakout',
     name: 'Arena Brekout: Infinitr',
     image: arena
   },
   {
-    id: 4,
+    id: 'pubg-battlegrounds',
     name: 'PUBG Battleground',
     image: pubg
+  },
+  {
+    id: 'fortnite',
+    name: 'Fortnite',
+    image: fortnite
+  },
+  {
+    id: 'valorant',
+    name: 'Valorant',
+    image: valorant
+  },
+  {
+    id: 'roblox',
+    name: 'Roblox',
+    image: roblox
   }
 ];
 
 export const PCGames: React.FC = () => {
   const [activeDot, setActiveDot] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const scrollToGame = (index: number) => {
     if (carouselRef.current) {
@@ -43,6 +62,10 @@ export const PCGames: React.FC = () => {
       });
       setActiveDot(index);
     }
+  };
+
+  const handleGameClick = (id: string) => {
+    navigate(`/game/${id}`);
   };
 
   useEffect(() => {
@@ -68,7 +91,12 @@ export const PCGames: React.FC = () => {
       <div className={styles.gamesWrapper}>
         <div className={styles.gamesCarousel} ref={carouselRef}>
           {games.map((game) => (
-            <div key={game.id} className={styles.gameItem}>
+            <div 
+              key={game.id} 
+              className={styles.gameItem}
+              onClick={() => handleGameClick(game.id)}
+              style={{ cursor: 'pointer' }}
+            >
               <div className={styles.imageWrapper}>
                 <img src={game.image} alt={game.name} />
               </div>

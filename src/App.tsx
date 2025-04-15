@@ -9,7 +9,7 @@ import { GiftCards } from './components/GiftCards/GiftCards';
 import { PCGames } from './components/PCGames/PCGames';
 import { GameStore } from './components/GameStore/GameStore';
 import { ShooterGames } from './components/ShooterGames/ShooterGames';
-import { BloodStrike } from './pages/BloodStrike/BloodStrike';
+import { GamePage } from './pages/GamePage/GamePage';
 import { Subscriptions } from './components/Subscriptions/Subscriptions';
 import { FAQ } from './components/FAQ/FAQ';
 
@@ -32,7 +32,7 @@ function App() {
                 <FAQ />
               </>
             } />
-            <Route path="/game/blood-strike" element={<BloodStrike />} />
+            <Route path="/game/:gameId" element={<GamePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

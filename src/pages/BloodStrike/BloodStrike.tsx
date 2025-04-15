@@ -22,6 +22,7 @@ export const BloodStrike: React.FC = () => {
   const [selectedGlobal, setSelectedGlobal] = useState('');
   const [selectedGold, setSelectedGold] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState('');
 
   const totalPrice = useMemo(() => {
     const globalPrice = globalItems.find(item => item.value === selectedGlobal)?.price || 0;
@@ -29,7 +30,22 @@ export const BloodStrike: React.FC = () => {
     return globalPrice + goldPrice;
   }, [selectedGlobal, selectedGold]);
 
+  const handleGlobalChange = (value: string) => {
+    setSelectedGlobal(value);
+    setError('');
+  };
+
+  const handleGoldChange = (value: string) => {
+    setSelectedGold(value);
+    setError('');
+  };
+
   const handleBuyClick = () => {
+    if (!selectedGlobal && !selectedGold) {
+      setError('Выберите хотя бы одну услугу');
+      return;
+    }
+    setError('');
     setIsModalOpen(true);
   };
 
@@ -62,7 +78,7 @@ export const BloodStrike: React.FC = () => {
             <h3 className={styles.selectTitle}>Глобальные предметы</h3>
             <Select
               value={selectedGlobal}
-              onChange={setSelectedGlobal}
+              onChange={handleGlobalChange}
               options={globalItems}
               placeholder="Выберите глобальный предмет"
             />
@@ -71,17 +87,17 @@ export const BloodStrike: React.FC = () => {
             <h3 className={styles.selectTitle}>Золото</h3>
             <Select
               value={selectedGold}
-              onChange={setSelectedGold}
+              onChange={handleGoldChange}
               options={goldItems}
               placeholder="Выберите количество золота"
             />
           </div>
         </div>
+        {error && <div className={styles.error}>{error}</div>}
         <div className={styles.actions}>
           <button 
             className={styles.buyButton}
             onClick={handleBuyClick}
-            disabled={!selectedGlobal || !selectedGold}
           >
             Купить {totalPrice > 0 ? `за ${totalPrice}₽` : ''}
           </button>
