@@ -11,6 +11,7 @@ import { GameStore } from './components/GameStore/GameStore';
 import { ShooterGames } from './components/ShooterGames/ShooterGames';
 import { BloodStrike } from './pages/BloodStrike/BloodStrike';
 import { Subscriptions } from './components/Subscriptions/Subscriptions';
+import { FAQ } from './components/FAQ/FAQ';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 <PCGames />
                 <ShooterGames />
                 <Subscriptions />
+                <FAQ />
               </>
             } />
             <Route path="/game/blood-strike" element={<BloodStrike />} />

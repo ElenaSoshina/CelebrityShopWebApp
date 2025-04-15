@@ -1,7 +1,7 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 20px;
   min-height: 100vh;
   background: linear-gradient(135deg, #000000 0%, #2B1055 50%, #7597DE 100%);
 }
@@ -32,7 +32,7 @@
   flex-direction: column;
   gap: 2rem;
   background: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
+  padding: 10px;
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);

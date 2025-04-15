@@ -45,6 +45,38 @@ export const Header: React.FC = () => {
     }
   };
 
+  const handleFAQClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const faqSection = document.getElementById('faq');
+    if (faqSection) {
+      const headerOffset = 80;
+      const elementPosition = faqSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    closeMenu();
+  };
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      const headerOffset = 80;
+      const elementPosition = heroSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    closeMenu();
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -68,7 +100,7 @@ export const Header: React.FC = () => {
           <Link 
             to="/" 
             className={`${styles.navLink} ${location.pathname === '/' ? styles.active : ''}`}
-            onClick={closeMenu}
+            onClick={handleHomeClick}
           >
             Главная
           </Link>
@@ -82,7 +114,7 @@ export const Header: React.FC = () => {
           <Link 
             to="/faq" 
             className={`${styles.navLink} ${location.pathname === '/faq' ? styles.active : ''}`}
-            onClick={closeMenu}
+            onClick={handleFAQClick}
           >
             FAQ
           </Link>

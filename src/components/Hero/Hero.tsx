@@ -3,7 +3,7 @@ import styles from './Hero.module.css';
 
 const Hero: React.FC = () => {
   return (
-    <section id="hero" className={styles.heroSection}>
+    <section id="hero" className={styles.hero}>
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>Геймерская вселенная</h1>
         <p className={styles.heroSubtitle}>
