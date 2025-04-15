@@ -31,16 +31,16 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
     };
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Заполните имя';
+      newErrors.name = 'Введите ваше имя';
     }
     
-    // Валидация телефона
     const phoneNumber = formData.phone.replace(/\D/g, '');
-    if (!phoneNumber || phoneNumber.length !== 11) {
-      newErrors.phone = 'Введите корректный номер телефона';
+    if (!phoneNumber) {
+      newErrors.phone = 'Введите номер телефона';
+    } else if (phoneNumber.length !== 11) {
+      newErrors.phone = 'Номер телефона должен содержать 11 цифр';
     }
     
-    // Валидация Telegram
     if (!formData.telegram.trim()) {
       newErrors.telegram = 'Заполните username';
     } else if (!formData.telegram.startsWith('@')) {
@@ -48,17 +48,17 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
     }
     
     if (!formData.question.trim()) {
-      newErrors.question = 'Заполните вопрос';
+      newErrors.question = 'Введите ваш вопрос';
     }
 
     setErrors(newErrors);
-    return !Object.values(newErrors).some(error => error !== '');
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Form data:', formData);
+      console.log('Отправка формы:', formData);
       setShowSuccess(true);
       setTimeout(() => {
         setShowSuccess(false);
@@ -88,7 +88,7 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <button className={styles.closeButton} onClick={onClose}>×</button>
-        <h2 className={styles.title}>Оставить вопрос</h2>
+        <h2 className={styles.title}>Задать вопрос</h2>
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <div className={styles.inputGroup}>
             <label htmlFor="name">Имя</label>
@@ -99,6 +99,7 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder="Ваше имя"
             />
             {errors.name && <div className={styles.errorMessage}>{errors.name}</div>}
           </div>
@@ -111,7 +112,7 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
               value={formData.phone}
               onChange={handleChange}
               required
-              placeholder="+7 (___) ___-__-__"
+              placeholder="Номер телефона"
             />
             {errors.phone && <div className={styles.errorMessage}>{errors.phone}</div>}
           </div>
@@ -136,6 +137,7 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
               value={formData.question}
               onChange={handleChange}
               required
+              placeholder="Ваш вопрос"
             />
             {errors.question && <div className={styles.errorMessage}>{errors.question}</div>}
           </div>
