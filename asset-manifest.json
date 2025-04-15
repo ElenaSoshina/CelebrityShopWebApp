@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/CelebrityShopWebApp/static/css/main.cfb3152a.css",
-    "main.js": "/CelebrityShopWebApp/static/js/main.2f008424.js",
+    "main.css": "/CelebrityShopWebApp/static/css/main.ef242ac5.css",
+    "main.js": "/CelebrityShopWebApp/static/js/main.42bb873b.js",
+    "static/media/mo-co.webp": "/CelebrityShopWebApp/static/media/mo-co.5115b59d4bebc1d957df.webp",
     "static/media/mobile-legents.jpg": "/CelebrityShopWebApp/static/media/mobile-legents.91a8e1ac5f50e0c810ae.jpg",
     "static/media/arena-breakout.jpg": "/CelebrityShopWebApp/static/media/arena-breakout.33310efe0d5adfb4b3d0.jpg",
     "static/media/impact.jpg": "/CelebrityShopWebApp/static/media/impact.fdd88e95a9c96ff3b0da.jpg",
@@ -16,6 +17,7 @@
     "static/media/bloodstrike.jpg": "/CelebrityShopWebApp/static/media/bloodstrike.569ca488113508594bac.jpg",
     "static/media/clashofclans.jpg": "/CelebrityShopWebApp/static/media/clashofclans.00ef7ad72a6820331f7f.jpg",
     "static/media/battle.jpg": "/CelebrityShopWebApp/static/media/battle.d2dda4852d49057cddb1.jpg",
+    "static/media/squad-buster.jpg": "/CelebrityShopWebApp/static/media/squad-buster.c8003e0736d3820e0b73.jpg",
     "static/media/pubg-newstate.jpg": "/CelebrityShopWebApp/static/media/pubg-newstate.dbdb19b97d5ce880a892.jpg",
     "static/media/delta-force.jpg": "/CelebrityShopWebApp/static/media/delta-force.91e547d2056da904b449.jpg",
     "static/media/lostlight.jpg": "/CelebrityShopWebApp/static/media/lostlight.c02749f23073dc407446.jpg",
@@ -29,11 +31,11 @@
     "static/media/telegram.jpg": "/CelebrityShopWebApp/static/media/telegram.070d6254428a0460bd6e.jpg",
     "static/media/steam.jpg": "/CelebrityShopWebApp/static/media/steam.43688541053f77d7c429.jpg",
     "index.html": "/CelebrityShopWebApp/index.html",
-    "main.cfb3152a.css.map": "/CelebrityShopWebApp/static/css/main.cfb3152a.css.map",
-    "main.2f008424.js.map": "/CelebrityShopWebApp/static/js/main.2f008424.js.map"
+    "main.ef242ac5.css.map": "/CelebrityShopWebApp/static/css/main.ef242ac5.css.map",
+    "main.42bb873b.js.map": "/CelebrityShopWebApp/static/js/main.42bb873b.js.map"
   },
   "entrypoints": [
-    "static/css/main.cfb3152a.css",
-    "static/js/main.2f008424.js"
+    "static/css/main.ef242ac5.css",
+    "static/js/main.42bb873b.js"
   ]
 }
