@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/CelebrityShopWebApp/static/css/main.d7a31eaa.css",
-    "main.js": "/CelebrityShopWebApp/static/js/main.1756a025.js",
+    "main.css": "/CelebrityShopWebApp/static/css/main.882cbe0a.css",
+    "main.js": "/CelebrityShopWebApp/static/js/main.3bb9c794.js",
     "static/media/mobile-legents.jpg": "/CelebrityShopWebApp/static/media/mobile-legents.91a8e1ac5f50e0c810ae.jpg",
     "static/media/arena-breakout.jpg": "/CelebrityShopWebApp/static/media/arena-breakout.33310efe0d5adfb4b3d0.jpg",
     "static/media/impact.jpg": "/CelebrityShopWebApp/static/media/impact.fdd88e95a9c96ff3b0da.jpg",
@@ -29,11 +29,11 @@
     "static/media/telegram.jpg": "/CelebrityShopWebApp/static/media/telegram.070d6254428a0460bd6e.jpg",
     "static/media/steam.jpg": "/CelebrityShopWebApp/static/media/steam.43688541053f77d7c429.jpg",
     "index.html": "/CelebrityShopWebApp/index.html",
-    "main.d7a31eaa.css.map": "/CelebrityShopWebApp/static/css/main.d7a31eaa.css.map",
-    "main.1756a025.js.map": "/CelebrityShopWebApp/static/js/main.1756a025.js.map"
+    "main.882cbe0a.css.map": "/CelebrityShopWebApp/static/css/main.882cbe0a.css.map",
+    "main.3bb9c794.js.map": "/CelebrityShopWebApp/static/js/main.3bb9c794.js.map"
   },
   "entrypoints": [
-    "static/css/main.d7a31eaa.css",
-    "static/js/main.1756a025.js"
+    "static/css/main.882cbe0a.css",
+    "static/js/main.3bb9c794.js"
   ]
 }
