@@ -46,10 +46,10 @@ export const Header: React.FC = () => {
     }
   };
 
-  const handleFAQClick = (e: React.MouseEvent) => {
+  const handleFaqClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (location.pathname !== '/') {
-      navigate('/#faq');
+      navigate('/', { state: { scrollTo: 'faq' } });
     } else {
       const faqSection = document.getElementById('faq');
       if (faqSection) {
@@ -108,7 +108,7 @@ export const Header: React.FC = () => {
         <nav className={`${styles.nav} ${isMenuOpen ? styles.active : ''}`}>
           <Link to="/" onClick={handleHomeClick}>Главная</Link>
           <Link to="/#game-store" onClick={handleCatalogClick}>Каталог</Link>
-          <Link to="/#faq" onClick={handleFAQClick}>FAQ</Link>
+          <Link to="/#faq" onClick={handleFaqClick}>FAQ</Link>
         </nav>
       </div>
       <Search isOpen={isSearchOpen} onClose={closeSearch} />

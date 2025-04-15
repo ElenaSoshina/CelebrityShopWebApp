@@ -1,48 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PCGames.module.css';
-import marvel from '../../assets/images/pc-games/marvel-rivals.jpg';
-import delta from '../../assets/images/pc-games/delta-force.jpg';
-import arena from '../../assets/images/pc-games/arena.jpg';
-import pubg from '../../assets/images/pc-games/battle.jpg';
-import fortnite from '../../assets/images/pc-games/fortnite.jpg';
-import valorant from '../../assets/images/pc-games/valorant.jpg';
-import roblox from '../../assets/images/pc-games/roblox.jpg';
+
 const games = [
   {
     id: 'marvel-rivals',
     name: 'Marvel Rivals',
-    image: marvel
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/marvel-rivals.jpg`
   },
   {
     id: 'delta-force',
     name: 'Delta Force',
-    image: delta
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/delta-force.jpg`
   },
   {
     id: 'arena-breakout',
-    name: 'Arena Brekout: Infinitr',
-    image: arena
+    name: 'Arena Breakout: Infinite',
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/arena.jpg`
   },
   {
     id: 'pubg-battlegrounds',
-    name: 'PUBG Battleground',
-    image: pubg
+    name: 'PUBG Battlegrounds',
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/battle.jpg`
   },
   {
     id: 'fortnite',
     name: 'Fortnite',
-    image: fortnite
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/fortnite.jpg`
   },
   {
     id: 'valorant',
     name: 'Valorant',
-    image: valorant
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/valorant.jpg`
   },
   {
     id: 'roblox',
     name: 'Roblox',
-    image: roblox
+    image: `${process.env.PUBLIC_URL}/assets/images/pc-games/roblox.jpg`
   }
 ];
 

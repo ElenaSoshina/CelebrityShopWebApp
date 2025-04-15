@@ -4,10 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './GamePage.module.css';
 import Select from '../../components/Select/Select';
 import { OrderModal } from '../../components/OrderModal/OrderModal';
-import brawlStarsImage from '../../assets/images/supersell/brawl-stars.jpg';
+
+interface GameImage {
+  imageUrl: string;
+}
 
 interface GameItem {
-  id: number;
   name: string;
   type: string;
   region: string;
@@ -16,66 +18,82 @@ interface GameItem {
 }
 
 interface GameInfo {
-  id: number;
   title: string;
   description: string;
   instruction: string;
-  imageUrl: string;
+  images: GameImage[];
+  items: GameItem[];
 }
 
 // Моковые данные для тестирования
 const mockGameInfo: GameInfo = {
-  id: 1,
-  title: "Brawl Stars",
-  description: "Brawl Stars — это популярная игра в жанрах шутер и MOBA, соединившая в себе лучшие стороны хитов League of Legends и Overwatch.",
-  instruction: "1) Выберите необходимое количество гемов или акцию для Brawl Stars\n2) Затем введите почту вашего аккаунта Supercell\n3) После этого проверяем все данные, чтобы нигде не было ошибок\n4) Оплачиваем товар\n5) После этого скидываете код от SuperCell\n6) Подождите 5-15 минут и получите свой донат в игру!",
-  imageUrl: brawlStarsImage
+  title: "Epic Adventure",
+  description: "Embark on an epic adventure filled with quests and surprises.",
+  instruction: "Follow the map and defeat the dragons to save the kingdom.",
+  images: [
+    {
+      imageUrl: "/assets/images/pc-games/delta-force.jpg"
+    },
+    {
+      imageUrl: "/assets/images/pc-games/valorant.jpg"
+    }
+  ],
+  items: [
+    {
+      name: "Magic Sword",
+      type: "Weapon",
+      region: "Enchanted Forest",
+      details: "A sword imbued with magical powers.",
+      price: 250
+    },
+    {
+      name: "Healing Potion",
+      type: "Consumable",
+      region: "Village Market",
+      details: "Restores health and energy.",
+      price: 50
+    }
+  ]
 };
-
-const mockItems: GameItem[] = [
-  {
-    id: 1,
-    name: "PRO PASS (Кубок Brawl)",
-    type: "Brawl Pass",
-    region: "Global",
-    details: "Премиум боевой пропуск",
-    price: 2499
-  },
-  {
-    id: 2,
-    name: "Brawl Pass +Plus",
-    type: "Brawl Pass",
-    region: "Global",
-    details: "Расширенный боевой пропуск",
-    price: 999
-  },
-  {
-    id: 10,
-    name: "950 гемов",
-    type: "Гемы",
-    region: "Global",
-    details: "Огромный набор гемов",
-    price: 4990
-  },
-  {
-    id: 11,
-    name: "2000 гемов",
-    type: "Гемы",
-    region: "Global",
-    details: "Максимальный набор гемов",
-    price: 9590
-  }
-];
 
 export const GamePage: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [items, setItems] = useState<GameItem[]>(mockItems);
   const [gameInfo, setGameInfo] = useState<GameInfo | null>(mockGameInfo);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+
+  // Минимальное расстояние для свайпа
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextImage();
+    }
+    if (isRightSwipe) {
+      prevImage();
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,13 +103,9 @@ export const GamePage: React.FC = () => {
   /*useEffect(() => {
     const fetchData = async () => {
       try {
-        const [itemsResponse, gameInfoResponse] = await Promise.all([
-          axios.get<GameItem[]>(`https://api.celebritystrike.com/api/games/${gameId}/items`),
-          axios.get<GameInfo>(`https://api.celebritystrike.com/api/games/${gameId}/info`)
-        ]);
-        
-        setItems(itemsResponse.data);
-        setGameInfo(gameInfoResponse.data);
+        setLoading(true);
+        const response = await axios.get<GameInfo>(`https://api.celebritystrike.com/api/games/${gameId}`);
+        setGameInfo(response.data);
         setLoading(false);
       } catch (err) {
         setError('Ошибка при загрузке данных');
@@ -119,8 +133,8 @@ export const GamePage: React.FC = () => {
   };
 
   const handleOrderSubmit = (data: { name: string; phone: string; telegram: string }) => {
-    const selectedProducts = Object.entries(selectedItems).map(([type, id]) => 
-      items.find(item => item.id === Number(id))
+    const selectedProducts = Object.entries(selectedItems).map(([type, name]) => 
+      gameInfo?.items.find(item => item.name === name)
     ).filter(Boolean);
 
     console.log('Order submitted:', {
@@ -131,18 +145,38 @@ export const GamePage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const nextImage = () => {
+    if (gameInfo) {
+      setSlideDirection('left');
+      setTimeout(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % gameInfo.images.length);
+        setSlideDirection(null);
+      }, 200);
+    }
+  };
+
+  const prevImage = () => {
+    if (gameInfo) {
+      setSlideDirection('right');
+      setTimeout(() => {
+        setCurrentImageIndex((prev) => (prev - 1 + gameInfo.images.length) % gameInfo.images.length);
+        setSlideDirection(null);
+      }, 200);
+    }
+  };
+
   // Группируем товары по типу
-  const groupedItems = items.reduce<Record<string, GameItem[]>>((acc, item) => {
+  const groupedItems = gameInfo?.items.reduce<Record<string, GameItem[]>>((acc, item) => {
     if (!acc[item.type]) {
       acc[item.type] = [];
     }
     acc[item.type].push(item);
     return acc;
-  }, {});
+  }, {}) || {};
 
   // Получаем выбранные товары и считаем общую сумму
-  const selectedProducts = Object.entries(selectedItems).map(([type, id]) => 
-    items.find(item => item.id === Number(id))
+  const selectedProducts = Object.entries(selectedItems).map(([type, name]) => 
+    gameInfo?.items.find(item => item.name === name)
   ).filter(Boolean) as GameItem[];
 
   const totalPrice = selectedProducts.reduce((sum, item) => sum + item.price, 0);
@@ -162,8 +196,38 @@ export const GamePage: React.FC = () => {
       </button>
       <div className={styles.header}>
         <h1 className={styles.title}>{gameInfo.title}</h1>
-        <div className={styles.imageWrapper}>
-          <img src={gameInfo.imageUrl} alt={gameInfo.title} className={styles.gameImage} />
+        <div 
+          className={styles.imageWrapper}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          {gameInfo.images.length > 0 && (
+            <>
+              <div className={styles.imageContainer}>
+                <img 
+                  src={`${process.env.PUBLIC_URL}${gameInfo.images[currentImageIndex].imageUrl}`} 
+                  alt={gameInfo.title} 
+                  className={`${styles.gameImage} ${slideDirection ? styles[`slide${slideDirection === 'left' ? 'Out' : 'In'}`] : ''}`}
+                />
+              </div>
+              {gameInfo.images.length > 1 && (
+                <>
+                  <button className={styles.prevButton} onClick={prevImage}>❮</button>
+                  <button className={styles.nextButton} onClick={nextImage}>❯</button>
+                  <div className={styles.carouselIndicators}>
+                    {gameInfo.images.map((_, index) => (
+                      <button
+                        key={index}
+                        className={`${styles.indicator} ${currentImageIndex === index ? styles.indicatorActive : ''}`}
+                        onClick={() => setCurrentImageIndex(index)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
         <p className={styles.description}>{gameInfo.description}</p>
       </div>
@@ -176,7 +240,7 @@ export const GamePage: React.FC = () => {
                 value={selectedItems[type] || ''}
                 onChange={(value) => handleItemChange(value, type)}
                 options={typeItems.map(item => ({
-                  value: String(item.id),
+                  value: item.name,
                   label: `${item.name} - ${item.price}₽`
                 }))}
                 placeholder={`Выберите ${type.toLowerCase()}`}

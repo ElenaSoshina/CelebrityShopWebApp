@@ -51,18 +51,29 @@
 .imageWrapper {
   width: 100%;
   max-width: 600px;
-  height: 300px;
+  height: 400px;
   margin: 0 auto 30px;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
+  touch-action: pan-y pinch-zoom;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.imageContainer {
+  display: flex;
+  transition: transform 0.2s ease;
+  height: 100%;
 }
 
 .gameImage {
-  width: 100%;
+  min-width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+  padding: 20px;
 }
 
 .imageWrapper:hover .gameImage {
@@ -160,6 +171,58 @@
   transform: translateX(-5px);
 }
 
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prevButton {
+  left: 0px;
+}
+
+.nextButton {
+  right: 0px;
+}
+
+.carouselIndicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicatorActive {
+  background: white;
+  transform: scale(1.2);
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -170,6 +233,32 @@
   }
 
   .imageWrapper {
-    height: 200px;
+    height: 350px;
   }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.slideIn {
+  animation: slideIn 0.2s ease forwards;
+}
+
+.slideOut {
+  animation: slideOut 0.2s ease forwards;
 } 

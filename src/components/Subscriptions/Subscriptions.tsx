@@ -1,14 +1,11 @@
 import React, { useState, useRef } from 'react';
 import styles from './Subscriptions.module.css';
 import { GameCard } from '../GameCard/GameCard';
-import telegram from '../../assets/images/subscriptions/telegram.jpg';
-import like from '../../assets/images/subscriptions/like.jpg';
-import steam from '../../assets/images/subscriptions/steam.jpg';
 
 const subscriptions = [
-  { id: 'telegram', name: 'Telegram', image: telegram },
-  { id: 'like', name: 'LIKE', image: like },
-  { id: 'steam', name: 'Steam', image: steam }
+  { id: 'telegram', name: 'Telegram', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/telegram.jpg` },
+  { id: 'like', name: 'LIKE', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/like.jpg` },
+  { id: 'steam', name: 'Steam', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/steam.jpg` }
 ];
 
 export const Subscriptions: React.FC = () => {

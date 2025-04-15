@@ -1,56 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SuperSellGames.module.css';
-import brawlStars from '../../assets/images/supersell/brawl-stars.jpg';
-import clashRoyale from '../../assets/images/supersell/clashroyale.jpg';
-import clashOfClans from '../../assets/images/supersell/clashofclans.jpg';
-import hayDay from '../../assets/images/supersell/hayday.jpg';
-import boomBeach from '../../assets/images/supersell/boombeach.jpg';
-import squadBuster from '../../assets/images/supersell/squad-buster.jpg';
-import moco from '../../assets/images/supersell/mo-co.webp';
 
-interface Game {
-  id: string;
-  name: string;
-  image: string;
-}
-
-const games: Game[] = [
-  {
-    id: 'brawl-stars',
-    name: 'Brawl Stars',
-    image: brawlStars
-  },
-  {
-    id: 'clash-royale',
-    name: 'Clash Royale',
-    image: clashRoyale
-  },
-  {
-    id: 'clash-of-clans',
-    name: 'Clash of Clans',
-    image: clashOfClans
-  },
-  {
-    id: 'hay-day',
-    name: 'Hay Day',
-    image: hayDay
-  },
-  {
-    id: 'boom-beach',
-    name: 'Boom Beach',
-    image: boomBeach
-  },
-  {
-    id: 'squad-buster',
-    name: 'Squad Buster',
-    image: squadBuster,
-  },
-  {
-    id: 'mo-co',
-    name: 'MO.CO',
-    image: moco
-  },
+const games = [
+  { id: 'brawl-stars', name: 'Brawl Stars', image: `${process.env.PUBLIC_URL}/assets/images/supersell/brawl-stars.jpg` },
+  { id: 'clash-royale', name: 'Clash Royale', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashroyale.jpg` },
+  { id: 'clash-of-clans', name: 'Clash of Clans', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashofclans.jpg` },
+  { id: 'hay-day', name: 'Hay Day', image: `${process.env.PUBLIC_URL}/assets/images/supersell/hayday.jpg` },
+  { id: 'boom-beach', name: 'Boom Beach', image: `${process.env.PUBLIC_URL}/assets/images/supersell/boombeach.jpg` },
+  { id: 'squad-buster', name: 'Squad Busters', image: `${process.env.PUBLIC_URL}/assets/images/supersell/squad-buster.jpg` },
+  { id: 'mo-co', name: 'Mo-Co', image: `${process.env.PUBLIC_URL}/assets/images/supersell/mo-co.webp` }
 ];
 
 export const SuperSellGames: React.FC = () => {

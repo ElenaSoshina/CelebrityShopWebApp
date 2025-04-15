@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GiftCards.module.css';
-import apple from '../../assets/images/gift-cards/apple.jpg';
-import roblox from '../../assets/images/gift-cards/roblox.jpg';
-import valorant from '../../assets/images/gift-cards/valorant.jpg';
-import fortnite from '../../assets/images/gift-cards/fortnite.jpg';
 
 const cards = [
   {
     id: 'apple-store',
     name: 'Apple Store/iTunes',
-    image: apple
+    image: `${process.env.PUBLIC_URL}/assets/images/gift-cards/apple.jpg`
   },
+ 
 ];
 
 export const GiftCards: React.FC = () => {
