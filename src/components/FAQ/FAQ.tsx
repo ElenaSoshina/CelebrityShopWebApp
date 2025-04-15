@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './FAQ.module.css';
+import { QuestionForm } from '../QuestionForm/QuestionForm';
 
 interface FAQItem {
   id: number;
@@ -42,9 +43,18 @@ const faqItems: FAQItem[] = [
 
 export const FAQ: React.FC = () => {
   const [openItemId, setOpenItemId] = useState<number | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleItemClick = (id: number) => {
     setOpenItemId(openItemId === id ? null : id);
+  };
+
+  const handleFormOpen = () => {
+    setIsFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
   };
 
   return (
@@ -67,6 +77,13 @@ export const FAQ: React.FC = () => {
           </div>
         ))}
       </div>
+      <div className={styles.askQuestion}>
+        <p>Остались вопросы?</p>
+        <button onClick={handleFormOpen} className={styles.askButton}>
+          Задать вопрос
+        </button>
+      </div>
+      <QuestionForm isOpen={isFormOpen} onClose={handleFormClose} />
     </section>
   );
 }; 
