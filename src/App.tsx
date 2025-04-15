@@ -1,6 +1,6 @@
 // src/App.tsx - Main application component
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { Header } from './components/Header/Header';
 import Hero from './components/Hero/Hero';
