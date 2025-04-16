@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/CelebrityShopWebApp/static/css/main.c294c221.css",
-    "main.js": "/CelebrityShopWebApp/static/js/main.b07a7d4b.js",
+    "main.js": "/CelebrityShopWebApp/static/js/main.db50f6ba.js",
     "index.html": "/CelebrityShopWebApp/index.html",
     "main.c294c221.css.map": "/CelebrityShopWebApp/static/css/main.c294c221.css.map",
-    "main.b07a7d4b.js.map": "/CelebrityShopWebApp/static/js/main.b07a7d4b.js.map"
+    "main.db50f6ba.js.map": "/CelebrityShopWebApp/static/js/main.db50f6ba.js.map"
   },
   "entrypoints": [
     "static/css/main.c294c221.css",
-    "static/js/main.b07a7d4b.js"
+    "static/js/main.db50f6ba.js"
   ]
 }
