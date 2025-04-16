@@ -26,42 +26,42 @@ interface GameInfo {
 }
 
 // Моковые данные для тестирования
-const mockGameInfo: GameInfo = {
-  title: "Epic Adventure",
-  description: "Embark on an epic adventure filled with quests and surprises.",
-  instruction: "Follow the map and defeat the dragons to save the kingdom.",
-  images: [
-    {
-      imageUrl: "/assets/images/pc-games/delta-force.jpg"
-    },
-    {
-      imageUrl: "/assets/images/pc-games/valorant.jpg"
-    }
-  ],
-  items: [
-    {
-      name: "Magic Sword",
-      type: "Weapon",
-      region: "Enchanted Forest",
-      details: "A sword imbued with magical powers.",
-      price: 250
-    },
-    {
-      name: "Healing Potion",
-      type: "Consumable",
-      region: "Village Market",
-      details: "Restores health and energy.",
-      price: 50
-    }
-  ]
-};
+// const mockGameInfo: GameInfo = {
+//   title: "Epic Adventure",
+//   description: "Embark on an epic adventure filled with quests and surprises.",
+//   instruction: "Follow the map and defeat the dragons to save the kingdom.",
+//   images: [
+//     {
+//       imageUrl: "/assets/images/pc-games/delta-force.jpg"
+//     },
+//     {
+//       imageUrl: "/assets/images/pc-games/valorant.jpg"
+//     }
+//   ],
+//   items: [
+//     {
+//       name: "Magic Sword",
+//       type: "Weapon",
+//       region: "Enchanted Forest",
+//       details: "A sword imbued with magical powers.",
+//       price: 250
+//     },
+//     {
+//       name: "Healing Potion",
+//       type: "Consumable",
+//       region: "Village Market",
+//       details: "Restores health and energy.",
+//       price: 50
+//     }
+//   ]
+// };
 
 export const GamePage: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [gameInfo, setGameInfo] = useState<GameInfo | null>(mockGameInfo);
+  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -100,11 +100,12 @@ export const GamePage: React.FC = () => {
   }, []);
 
   // Закомментированный запрос к API
-  /*useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         const response = await axios.get<GameInfo>(`https://api.celebritystrike.com/api/games/${gameId}`);
+        console.log('Game from API: ', response.data)
         setGameInfo(response.data);
         setLoading(false);
       } catch (err) {
@@ -114,7 +115,7 @@ export const GamePage: React.FC = () => {
     };
 
     fetchData();
-  }, [gameId]);*/
+  }, [gameId]);
 
   const handleItemChange = (value: string, type: string) => {
     setSelectedItems(prev => ({
