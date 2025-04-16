@@ -95,7 +95,7 @@ export const GamePage: React.FC = () => {
         const response = await axios.get<ApiResponse>(`https://celebrity-strike.duckdns.org/api/v1/games/brawl_stars`, {
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/json'
           }
         });
         if (response.data.success) {
