@@ -1,5 +1,5 @@
 .container {
-  padding: 40px;
+  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -10,25 +10,19 @@
 }
 
 .title {
-  font-size: 48px;
-  font-weight: 700;
+  font-size: 32px;
   margin-bottom: 20px;
-  background: linear-gradient(90deg, #00c2ff, #7000ff, #ff00ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .description {
-  font-size: 18px;
-  color: #fff;
+  font-size: 16px;
   line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
@@ -48,32 +42,33 @@
   font-size: 18px;
 }
 
+.imageSection {
+  position: relative;
+}
+
 .imageWrapper {
   width: 100%;
-  max-width: 600px;
   height: 400px;
-  margin: 0 auto 30px;
-  border-radius: 12px;
+  margin-bottom: 20px;
+  border-radius: 10px;
   overflow: hidden;
   position: relative;
   touch-action: pan-y pinch-zoom;
-  background: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .imageContainer {
   display: flex;
   transition: transform 0.2s ease;
-  height: 100%;
 }
 
 .gameImage {
-  min-width: 100%;
+  width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: transform 0.3s ease;
+  padding: 20px;
   user-select: none;
   -webkit-user-drag: none;
-  padding: 20px;
 }
 
 .imageWrapper:hover .gameImage {
@@ -81,18 +76,12 @@
 }
 
 .instruction {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 24px;
-  margin: 0 auto;
-  max-width: 600px;
-  width: 100%;
+  margin-bottom: 30px;
 }
 
-.instruction h3 {
-  color: #fff;
-  margin-bottom: 16px;
-  font-size: 20px;
+.instruction h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
 .instructionText {
@@ -136,38 +125,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
+  height: 100vh;
+  font-size: 1.5rem;
   color: #fff;
-  font-size: 1.2rem;
 }
 
 .error {
-  color: #ff3366;
-  text-align: center;
-  padding: 1rem;
-  background: rgba(255, 51, 102, 0.1);
-  border-radius: 8px;
-  margin: 2rem auto;
-  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #ff4444;
 }
 
 .backButton {
-  position: absolute;
-  top: 60px;
-  left: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: none;
   border: none;
-  color: white;
+  color: #fff;
   font-size: 24px;
   cursor: pointer;
-  padding: 10px 10px;
-  border-radius: 20px;
-  transition: all 0.3s ease;
+  padding: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
 }
 
 .backButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ff4655;
   transform: translateX(-5px);
 }
 
@@ -181,9 +164,8 @@
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 24px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  font-size: 20px;
+  transition: background 0.2s;
 }
 
 .prevButton:hover,
@@ -192,11 +174,11 @@
 }
 
 .prevButton {
-  left: 0px;
+  left: 10px;
 }
 
 .nextButton {
-  right: 0px;
+  right: 10px;
 }
 
 .carouselIndicators {
@@ -206,7 +188,6 @@
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  z-index: 2;
 }
 
 .indicator {
@@ -214,8 +195,9 @@
   height: 10px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
 }
 
 .indicatorActive {
@@ -223,18 +205,37 @@
   transform: scale(1.2);
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
+.infoSection {
+  color: #fff;
+}
 
-  .title {
-    font-size: 2rem;
-  }
+.items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
 
-  .imageWrapper {
-    height: 350px;
-  }
+.item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.item p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-top: 10px;
 }
 
 @keyframes slideIn {
@@ -255,10 +256,28 @@
   }
 }
 
-.slideIn {
-  animation: slideIn 0.2s ease forwards;
+.slideleft {
+  animation: slideIn 0.2s ease-out;
 }
 
-.slideOut {
-  animation: slideOut 0.2s ease forwards;
+.slideright {
+  animation: slideOut 0.2s ease-out;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageWrapper {
+    height: 300px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .items {
+    grid-template-columns: 1fr;
+  }
 } 

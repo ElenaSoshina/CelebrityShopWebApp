@@ -4,17 +4,36 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './GamePage.module.css';
 import Select from '../../components/Select/Select';
 import { OrderModal } from '../../components/OrderModal/OrderModal';
+import { Game } from '../../types/game';
 
 interface GameImage {
+  id: number;
   imageUrl: string;
 }
 
 interface GameItem {
+  id: number;
   name: string;
   type: string;
   region: string;
   details: string;
   price: number;
+}
+
+interface GameData {
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  instruction: string;
+  images: GameImage[];
+  items: GameItem[];
+}
+
+interface ApiResponse {
+  success: boolean;
+  data: GameData;
+  errorMessage?: string;
 }
 
 interface GameInfo {
@@ -57,65 +76,48 @@ interface GameInfo {
 // };
 
 export const GamePage: React.FC = () => {
-  const { gameId } = useParams<{ gameId: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [game, setGame] = useState<GameData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
 
-  // Минимальное расстояние для свайпа
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      nextImage();
-    }
-    if (isRightSwipe) {
-      prevImage();
-    }
-  };
-
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  // Закомментированный запрос к API
-  useEffect(() => {
-    const fetchData = async () => {
+    const fetchGame = async () => {
       try {
         setLoading(true);
-        const response = await axios.get<GameInfo>(`https://api.celebritystrike.com/api/games/${gameId}`);
-        console.log('Game from API: ', response.data)
-        setGameInfo(response.data);
-        setLoading(false);
+        const response = await axios.get<ApiResponse>(`https://celebrity-strike.duckdns.org/api/v1/games/brawl_stars`, {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.data.success) {
+          setGame(response.data.data);
+        } else {
+          setError(response.data.errorMessage || 'Ошибка при загрузке данных');
+        }
       } catch (err) {
-        setError('Ошибка при загрузке данных');
+        if (axios.isAxiosError(err)) {
+          setError(`Ошибка ${err.response?.status}: ${err.response?.statusText}`);
+          console.error('Error details:', err.response?.data);
+        } else {
+          setError('Ошибка при загрузке данных');
+          console.error('Error fetching game:', err);
+        }
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [gameId]);
+    fetchGame();
+  }, [id]);
 
   const handleItemChange = (value: string, type: string) => {
     setSelectedItems(prev => ({
@@ -135,7 +137,7 @@ export const GamePage: React.FC = () => {
 
   const handleOrderSubmit = (data: { name: string; phone: string; telegram: string }) => {
     const selectedProducts = Object.entries(selectedItems).map(([type, name]) => 
-      gameInfo?.items.find(item => item.name === name)
+      game?.items.find(item => item.name === name)
     ).filter(Boolean);
 
     console.log('Order submitted:', {
@@ -147,27 +149,42 @@ export const GamePage: React.FC = () => {
   };
 
   const nextImage = () => {
-    if (gameInfo) {
-      setSlideDirection('left');
-      setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % gameInfo.images.length);
-        setSlideDirection(null);
-      }, 200);
-    }
+    if (!game) return;
+    setCurrentImageIndex((prev) => (prev + 1) % game.images.length);
   };
 
   const prevImage = () => {
-    if (gameInfo) {
-      setSlideDirection('right');
-      setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev - 1 + gameInfo.images.length) % gameInfo.images.length);
-        setSlideDirection(null);
-      }, 200);
+    if (!game) return;
+    setCurrentImageIndex((prev) => (prev - 1 + game.images.length) % game.images.length);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextImage();
     }
+    if (isRightSwipe) {
+      prevImage();
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
   };
 
   // Группируем товары по типу
-  const groupedItems = gameInfo?.items.reduce<Record<string, GameItem[]>>((acc, item) => {
+  const groupedItems = game?.items.reduce<Record<string, GameItem[]>>((acc, item) => {
     if (!acc[item.type]) {
       acc[item.type] = [];
     }
@@ -177,7 +194,7 @@ export const GamePage: React.FC = () => {
 
   // Получаем выбранные товары и считаем общую сумму
   const selectedProducts = Object.entries(selectedItems).map(([type, name]) => 
-    gameInfo?.items.find(item => item.name === name)
+    game?.items.find(item => item.name === name)
   ).filter(Boolean) as GameItem[];
 
   const totalPrice = selectedProducts.reduce((sum, item) => sum + item.price, 0);
@@ -186,72 +203,63 @@ export const GamePage: React.FC = () => {
     return <div className={styles.loading}>Загрузка...</div>;
   }
 
-  if (error || !gameInfo) {
-    return <div className={styles.error}>{error || 'Ошибка загрузки данных'}</div>;
+  if (error || !game) {
+    return <div className={styles.error}>{error || 'Игра не найдена'}</div>;
   }
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate('/')}>
-        ←
+      <button className={styles.backButton} onClick={() => navigate(-1)}>
+        ← Назад
       </button>
-      <div className={styles.header}>
-        <h1 className={styles.title}>{gameInfo.title}</h1>
-        <div 
-          className={styles.imageWrapper}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          {gameInfo.images.length > 0 && (
-            <>
-              <div className={styles.imageContainer}>
-                <img 
-                  src={`${process.env.PUBLIC_URL}${gameInfo.images[currentImageIndex].imageUrl}`} 
-                  alt={gameInfo.title} 
-                  className={`${styles.gameImage} ${slideDirection ? styles[`slide${slideDirection === 'left' ? 'Out' : 'In'}`] : ''}`}
-                />
-              </div>
-              {gameInfo.images.length > 1 && (
-                <>
-                  <button className={styles.prevButton} onClick={prevImage}>❮</button>
-                  <button className={styles.nextButton} onClick={nextImage}>❯</button>
-                  <div className={styles.carouselIndicators}>
-                    {gameInfo.images.map((_, index) => (
-                      <button
-                        key={index}
-                        className={`${styles.indicator} ${currentImageIndex === index ? styles.indicatorActive : ''}`}
-                        onClick={() => setCurrentImageIndex(index)}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </>
-          )}
-        </div>
-        <p className={styles.description}>{gameInfo.description}</p>
-      </div>
       <div className={styles.content}>
-        <div className={styles.selects}>
-          {Object.entries(groupedItems).map(([type, typeItems]) => (
-            <div key={type} className={styles.selectGroup}>
-              <h3 className={styles.selectTitle}>{type}</h3>
-              <Select
-                value={selectedItems[type] || ''}
-                onChange={(value) => handleItemChange(value, type)}
-                options={typeItems.map(item => ({
-                  value: item.name,
-                  label: `${item.name} - ${item.price}₽`
-                }))}
-                placeholder={`Выберите ${type.toLowerCase()}`}
+        <div className={styles.imageSection}>
+          <div
+            className={styles.imageWrapper}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div className={styles.imageContainer}>
+              <img
+                src={game.images[currentImageIndex].imageUrl}
+                alt={game.title}
+                className={styles.gameImage}
               />
             </div>
-          ))}
+            {game.images.length > 1 && (
+              <>
+                <button className={styles.prevButton} onClick={prevImage}>❮</button>
+                <button className={styles.nextButton} onClick={nextImage}>❯</button>
+                <div className={styles.carouselIndicators}>
+                  {game.images.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`${styles.indicator} ${index === currentImageIndex ? styles.indicatorActive : ''}`}
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-        <div className={styles.instruction}>
-          <h3>Инструкция:</h3>
-          <pre className={styles.instructionText}>{gameInfo.instruction}</pre>
+        <div className={styles.infoSection}>
+          <h1 className={styles.title}>{game.title}</h1>
+          <p className={styles.description}>{game.description}</p>
+          <div className={styles.instruction}>
+            <h2>Инструкция</h2>
+            <p>{game.instruction}</p>
+          </div>
+          <div className={styles.items}>
+            {game.items.map((item) => (
+              <div key={item.id} className={styles.item}>
+                <h3>{item.name}</h3>
+                <p>{item.details}</p>
+                <div className={styles.price}>{item.price} ₽</div>
+              </div>
+            ))}
+          </div>
         </div>
         <div className={styles.actions}>
           <button 

@@ -6,8 +6,6 @@ const games = [
   { id: 'brawl-stars', name: 'Brawl Stars', image: `${process.env.PUBLIC_URL}/assets/images/supersell/brawl-stars.jpg` },
   { id: 'clash-royale', name: 'Clash Royale', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashroyale.jpg` },
   { id: 'clash-of-clans', name: 'Clash of Clans', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashofclans.jpg` },
-  { id: 'hay-day', name: 'Hay Day', image: `${process.env.PUBLIC_URL}/assets/images/supersell/hayday.jpg` },
-  { id: 'boom-beach', name: 'Boom Beach', image: `${process.env.PUBLIC_URL}/assets/images/supersell/boombeach.jpg` },
   { id: 'squad-buster', name: 'Squad Busters', image: `${process.env.PUBLIC_URL}/assets/images/supersell/squad-buster.jpg` },
   { id: 'mo-co', name: 'Mo-Co', image: `${process.env.PUBLIC_URL}/assets/images/supersell/mo-co.webp` }
 ];

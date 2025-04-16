@@ -10,9 +10,11 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => {
     const scrollToSection = (sectionId: string) => {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        requestAnimationFrame(() => {
+      // Пытаемся найти элемент каждые 100 мс
+      const interval = setInterval(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          // Когда элемент найден, производим скролл
           const headerOffset = 80;
           const elementPosition = section.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -21,25 +23,35 @@ export const HomePage: React.FC = () => {
             top: offsetPosition,
             behavior: 'smooth'
           });
-        });
-      }
+          clearInterval(interval);
+        }
+      }, 100);
+      
+      // Прекращаем попытки через 3 секунды, если элемент так и не появился
+      setTimeout(() => clearInterval(interval), 3000);
     };
 
-    // Проверяем state при навигации
+    // Если передан параметр scrollTo в state, запускаем скролл
     if (location.state && (location.state as any).scrollTo) {
+      // Небольшая задержка, чтобы дать время элементам отрендериться
       setTimeout(() => {
         scrollToSection((location.state as any).scrollTo);
-      }, 1000);
+      }, 100);
     }
   }, [location]);
 
   return (
     <div className={styles.container}>
       <Hero />
-      <GiftCards />
+      {/* Оборачиваем GiftCards в блок с id для скроллинга "Каталог" */}
+      <div id="game-store">
+        <GiftCards />
+      </div>
       <div id="faq">
         <FAQ />
       </div>
     </div>
   );
-}; 
+};
+
+export default HomePage;

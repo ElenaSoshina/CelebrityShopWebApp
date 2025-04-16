@@ -28,16 +28,17 @@ export const Header: React.FC = () => {
   const handleCatalogClick = (e: React.MouseEvent) => {
     e.preventDefault();
     closeMenu();
-    
+
     if (location.pathname !== '/') {
-      navigate('/#game-store');
+      // Если не на главной, переходим на главную и передаём id секции "game-store"
+      navigate('/', { state: { scrollTo: 'game-store' } });
     } else {
+      // Если уже на главной, выполняем скролл сразу
       const gameStoreSection = document.getElementById('game-store');
       if (gameStoreSection) {
         const headerOffset = 80;
         const elementPosition = gameStoreSection.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
@@ -48,42 +49,44 @@ export const Header: React.FC = () => {
 
   const handleFaqClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    closeMenu();
+
     if (location.pathname !== '/') {
+      // Если не на главной, переходим на главную и передаём id секции "faq"
       navigate('/', { state: { scrollTo: 'faq' } });
     } else {
+      // Если уже на главной, выполняем скролл сразу
       const faqSection = document.getElementById('faq');
       if (faqSection) {
         const headerOffset = 80;
         const elementPosition = faqSection.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         });
       }
     }
-    closeMenu();
   };
 
   const handleHomeClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    closeMenu();
+
     if (location.pathname !== '/') {
-      navigate('/#hero');
+      navigate('/');
     } else {
       const heroSection = document.getElementById('hero');
       if (heroSection) {
         const headerOffset = 80;
         const elementPosition = heroSection.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         });
       }
     }
-    closeMenu();
   };
 
   return (
@@ -106,9 +109,10 @@ export const Header: React.FC = () => {
           <div className={styles.searchIcon} />
         </button>
         <nav className={`${styles.nav} ${isMenuOpen ? styles.active : ''}`}>
+          {/* Все ссылки ведут на '/' и используют onClick для управления скроллом */}
           <Link to="/" onClick={handleHomeClick}>Главная</Link>
-          <Link to="/#game-store" onClick={handleCatalogClick}>Каталог</Link>
-          <Link to="/#faq" onClick={handleFaqClick}>FAQ</Link>
+          <Link to="/" onClick={handleCatalogClick}>Каталог</Link>
+          <Link to="/" onClick={handleFaqClick}>FAQ</Link>
         </nav>
       </div>
       <Search isOpen={isSearchOpen} onClose={closeSearch} />
