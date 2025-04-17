@@ -35,8 +35,9 @@ export const SuperSellGames: React.FC = () => {
     }
   };
 
-  const handleGameClick = (id: string) => {
-    navigate(`/game/${id}`);
+  const handleGameClick = (slug: string) => {
+    const backendName = slug.replace(/-/g, '_');
+    navigate(`/game/${slug}`);
   };
 
   return (

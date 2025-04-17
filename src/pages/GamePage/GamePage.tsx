@@ -76,7 +76,7 @@ interface GameInfo {
 // };
 
 export const GamePage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -92,7 +92,7 @@ export const GamePage: React.FC = () => {
     const fetchGame = async () => {
       try {
         setLoading(true);
-        const response = await axios.get<ApiResponse>(`https://celebrity-strike.duckdns.org/api/v1/games/brawl_stars`, {
+        const response = await axios.get<ApiResponse>(`https://celebrity-strike.duckdns.org/api/v1/games/${name}`, {
           headers: {
             'Accept': 'application/json',
             // 'Content-Type': 'application/json'
@@ -117,7 +117,7 @@ export const GamePage: React.FC = () => {
     };
 
     fetchGame();
-  }, [id]);
+  }, [name]);
 
   const handleItemChange = (value: string, type: string) => {
     setSelectedItems(prev => ({

@@ -32,7 +32,7 @@ function App() {
                 <FAQ />
               </>
             } />
-            <Route path="/game/:gameId" element={<GamePage />} />
+            <Route path="/game/:name" element={<GamePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
