@@ -210,9 +210,10 @@ export const GamePage: React.FC = () => {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={() => navigate(-1)}>
-        ← Назад
+        ← 
       </button>
       <div className={styles.content}>
+      <h1 className={styles.title}>{game.title}</h1>
         <div className={styles.imageSection}>
           <div
             className={styles.imageWrapper}
@@ -222,7 +223,7 @@ export const GamePage: React.FC = () => {
           >
             <div className={styles.imageContainer}>
               <img
-                src={game.images[currentImageIndex].imageUrl}
+                src={`${process.env.PUBLIC_URL}${game.images[currentImageIndex].imageUrl}`}
                 alt={game.title}
                 className={styles.gameImage}
               />
@@ -245,21 +246,30 @@ export const GamePage: React.FC = () => {
           </div>
         </div>
         <div className={styles.infoSection}>
-          <h1 className={styles.title}>{game.title}</h1>
+          {/* <h1 className={styles.title}>{game.title}</h1> */}
           <p className={styles.description}>{game.description}</p>
-          <div className={styles.instruction}>
-            <h2>Инструкция</h2>
-            <p>{game.instruction}</p>
-          </div>
           <div className={styles.items}>
-            {game.items.map((item) => (
-              <div key={item.id} className={styles.item}>
-                <h3>{item.name}</h3>
-                <p>{item.details}</p>
-                <div className={styles.price}>{item.price} ₽</div>
+            {Object.entries(groupedItems).map(([type, items]) => (
+              <div key={type} className={styles.itemGroup}>
+                <h3>{type}</h3>
+                <Select
+                  value={selectedItems[type] || ''}
+                  onChange={(value) => handleItemChange(value, type)}
+                  options={items.map(item => ({
+                    value: item.name,
+                    label: `${item.name} - ${item.price}₽`,
+                    price: item.price
+                  }))}
+                  placeholder={`Выберите ${type}`}
+                />
               </div>
             ))}
           </div>
+          <div className={styles.instruction}>
+            <h2>Инструкция</h2>
+            <p className={styles.instructionText}>{game.instruction}</p>
+          </div>
+          
         </div>
         <div className={styles.actions}>
           <button 

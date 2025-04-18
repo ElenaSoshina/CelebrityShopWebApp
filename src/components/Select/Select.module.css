@@ -13,6 +13,7 @@
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
   background-size: 1em;
+  margin-top: 10px;
 }
 
 .select:focus {

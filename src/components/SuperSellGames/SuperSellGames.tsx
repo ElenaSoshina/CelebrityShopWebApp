@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styles from './SuperSellGames.module.css';
 
 const games = [
-  { id: 'brawl-stars', name: 'Brawl Stars', image: `${process.env.PUBLIC_URL}/assets/images/supersell/brawl-stars.jpg` },
-  { id: 'clash-royale', name: 'Clash Royale', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashroyale.jpg` },
-  { id: 'clash-of-clans', name: 'Clash of Clans', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashofclans.jpg` },
-  { id: 'squad-buster', name: 'Squad Busters', image: `${process.env.PUBLIC_URL}/assets/images/supersell/squad-buster.jpg` },
-  { id: 'mo-co', name: 'Mo-Co', image: `${process.env.PUBLIC_URL}/assets/images/supersell/mo-co.webp` }
+  { id: 'brawl_stars', name: 'Brawl Stars', image: `${process.env.PUBLIC_URL}/assets/images/supersell/brawl-stars.jpg` },
+  { id: 'clash_royale', name: 'Clash Royale', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashroyale.jpg` },
+  { id: 'clash_of_clans', name: 'Clash of Clans', image: `${process.env.PUBLIC_URL}/assets/images/supersell/clashofclans.jpg` },
+  { id: 'squad_buster', name: 'Squad Busters', image: `${process.env.PUBLIC_URL}/assets/images/supersell/squad-buster.jpg` },
+  { id: 'mo_co', name: 'Mo-Co', image: `${process.env.PUBLIC_URL}/assets/images/supersell/mo-co.webp` }
 ];
 
 export const SuperSellGames: React.FC = () => {
@@ -36,7 +36,7 @@ export const SuperSellGames: React.FC = () => {
   };
 
   const handleGameClick = (slug: string) => {
-    const backendName = slug.replace(/-/g, '_');
+    // const backendName = slug.replace(/-/g, '_');
     navigate(`/game/${slug}`);
   };
 
