@@ -4,7 +4,7 @@ import styles from './GiftCards.module.css';
 
 const cards = [
   {
-    id: 'apple-store',
+    id: 'apple_store',
     name: 'Apple Store/iTunes',
     image: `${process.env.PUBLIC_URL}/assets/images/gift-cards/apple.jpg`
   },

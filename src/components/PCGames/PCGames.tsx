@@ -4,22 +4,22 @@ import styles from './PCGames.module.css';
 
 const games = [
   {
-    id: 'marvel-rivals',
+    id: 'marvel_rivals',
     name: 'Marvel Rivals',
     image: `${process.env.PUBLIC_URL}/assets/images/pc-games/marvel-rivals.jpg`
   },
   {
-    id: 'delta-force',
+    id: 'delta_force',
     name: 'Delta Force',
     image: `${process.env.PUBLIC_URL}/assets/images/pc-games/delta-force.jpg`
   },
   {
-    id: 'arena-breakout',
+    id: 'arena_breakout',
     name: 'Arena Breakout: Infinite',
     image: `${process.env.PUBLIC_URL}/assets/images/pc-games/arena.jpg`
   },
   {
-    id: 'pubg-battlegrounds',
+    id: 'pubg_battlegrounds',
     name: 'PUBG Battlegrounds',
     image: `${process.env.PUBLIC_URL}/assets/images/pc-games/battle.jpg`
   },
