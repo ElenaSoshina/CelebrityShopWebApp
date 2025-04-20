@@ -3,16 +3,16 @@ import styles from './ShooterGames.module.css';
 import { GameCard } from '../GameCard/GameCard';
 
 const games = [
-  { id: 'blood-strike', name: 'Blood Strike', image: `${process.env.PUBLIC_URL}/assets/images/shooters/bloodstrike.jpg` },
-  { id: 'pubg-mobile', name: 'PUBG MOBILE', image: `${process.env.PUBLIC_URL}/assets/images/shooters/pubg-mobile.jpg` },
-  { id: 'pubg-new-state', name: 'PUBG NEW STATE', image: `${process.env.PUBLIC_URL}/assets/images/shooters/pubg-newstate.jpg` },
-  { id: 'free-fire', name: 'Free Fire', image: `${process.env.PUBLIC_URL}/assets/images/shooters/free-fire.jpg` },
-  { id: 'lost-light', name: 'Lost Light', image: `${process.env.PUBLIC_URL}/assets/images/shooters/lostlight.jpg` },
-  { id: 'arena-breakout', name: 'Arena Breakout', image: `${process.env.PUBLIC_URL}/assets/images/shooters/arena-breakout.jpg` },
-  { id: 'standoff-2', name: 'Standoff 2', image: `${process.env.PUBLIC_URL}/assets/images/shooters/standoff2.jpg` },
-  { id: 't3-arena', name: 'T3 Arena', image: `${process.env.PUBLIC_URL}/assets/images/shooters/t3arena.jpg` },
-  { id: 'mobile-legends', name: 'Mobile Legends RU', image: `${process.env.PUBLIC_URL}/assets/images/shooters/mobile-legents.jpg` },
-  { id: 'genshin-impact', name: 'Genshin Impact', image: `${process.env.PUBLIC_URL}/assets/images/shooters/impact.jpg` }
+  { id: 'blood_strike', name: 'Blood Strike', image: `${process.env.PUBLIC_URL}/assets/images/shooters/bloodstrike.jpg` },
+  { id: 'pubg_mobile', name: 'PUBG MOBILE', image: `${process.env.PUBLIC_URL}/assets/images/shooters/pubg-mobile.jpg` },
+  { id: 'pubg_new_state', name: 'PUBG NEW STATE', image: `${process.env.PUBLIC_URL}/assets/images/shooters/pubg-newstate.jpg` },
+  { id: 'free_fire', name: 'Free Fire', image: `${process.env.PUBLIC_URL}/assets/images/shooters/free-fire.jpg` },
+  { id: 'lost_light', name: 'Lost Light', image: `${process.env.PUBLIC_URL}/assets/images/shooters/lostlight.jpg` },
+  { id: 'arena_breakout_shooter', name: 'Arena Breakout', image: `${process.env.PUBLIC_URL}/assets/images/shooters/arena-breakout.jpg` },
+  { id: 'standoff2', name: 'Standoff 2', image: `${process.env.PUBLIC_URL}/assets/images/shooters/standoff2.jpg` },
+  { id: 't3_arena', name: 'T3 Arena', image: `${process.env.PUBLIC_URL}/assets/images/shooters/t3arena.jpg` },
+  { id: 'mobile_legends', name: 'Mobile Legends RU', image: `${process.env.PUBLIC_URL}/assets/images/shooters/mobile-legents.jpg` },
+  { id: 'genshin_impact', name: 'Genshin Impact', image: `${process.env.PUBLIC_URL}/assets/images/shooters/impact.jpg` }
 ];
 
 export const ShooterGames: React.FC = () => {

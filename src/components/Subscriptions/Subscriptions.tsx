@@ -4,7 +4,7 @@ import { GameCard } from '../GameCard/GameCard';
 
 const subscriptions = [
   { id: 'telegram', name: 'Telegram', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/telegram.jpg` },
-  { id: 'like', name: 'LIKE', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/like.jpg` },
+  { id: 'likee', name: 'LIKE', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/like.jpg` },
   { id: 'steam', name: 'Steam', image: `${process.env.PUBLIC_URL}/assets/images/subscriptions/steam.jpg` }
 ];
 
