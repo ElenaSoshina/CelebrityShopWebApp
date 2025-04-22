@@ -103,34 +103,41 @@
   font-family: inherit;
 }
 
-.actions {
+.buySection {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.totalPrice {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
 }
 
 .buyButton {
-  background: linear-gradient(90deg, #00c2ff, #7000ff);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #00c2ff, #7000ff, #ff00ff);
   border: none;
   border-radius: 8px;
-  color: #fff;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 16px 32px;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s;
+  min-width: 200px;
+  margin-bottom: 20px;
 }
 
 .buyButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
 }
 
 .buyButton:disabled {
-  background: rgba(255, 255, 255, 0.1);
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
 .loading {

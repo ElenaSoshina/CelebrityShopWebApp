@@ -328,7 +328,7 @@ body {
 
 main {
   flex: 1;
-  padding-top: 80px; /* Высота хедера */
+  padding-top: 100px;
   width: 100%;
   overflow-x: hidden;
 }

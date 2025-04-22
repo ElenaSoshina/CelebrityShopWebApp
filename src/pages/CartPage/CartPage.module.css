@@ -1,0 +1,341 @@
+.cartContainer {
+    position: relative;
+  }
+  
+  .cartButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding: 8px;
+  }
+  
+  .cartIcon {
+    font-size: 24px;
+  }
+  
+  .itemCount {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+  }
+  
+  .cartDropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 320px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .cartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .cartHeader h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .cartItems {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 16px;
+  }
+  
+  .cartItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .itemImage {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 12px;
+  }
+  
+  .itemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+  }
+  
+  .gameName {
+    font-size: 1.2rem;
+    margin: 0;
+    background: linear-gradient(90deg, #00c2ff, #7000ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+  }
+  
+  .serviceInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  
+  .serviceName {
+    font-size: 1rem;
+    margin: 0;
+    color: white;
+  }
+  
+  .itemDetails {
+    flex: 1;
+  }
+  
+  .itemDetails h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+  }
+  
+  .itemPrice {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-size: 1rem;
+    text-align: right;
+  }
+  
+  .quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .quantityButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    font-size: 16px;
+  }
+  
+  .quantityButton::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 6px;
+    padding: 2px;
+    background: linear-gradient(90deg, #00c2ff, #7000ff);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  .quantityButton:hover {
+    transform: translateY(-1px);
+  }
+  
+  .quantity {
+    min-width: 30px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .removeButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 0, 0, 0.6);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  .removeButton:hover {
+    color: rgba(255, 0, 0, 0.9);
+    transform: scale(1.1);
+  }
+  
+  .cartFooter {
+    padding: 16px;
+    border-top: 1px solid #eee;
+  }
+  
+  .total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-weight: bold;
+  }
+  
+  .totalPrice {
+    color: #ff4444;
+  }
+  
+  .checkoutButton {
+    width: 100%;
+    padding: 12px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .checkoutButton:hover {
+    background: #ff2222;
+  }
+
+.cartPage {
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px);
+  background: #000;
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  background: linear-gradient(90deg, #00c2ff, #7000ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  width: 100%;
+}
+
+.emptyCart {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.emptyCartTitle {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.emptyCartText {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+}
+
+.continueButton {
+  background: linear-gradient(90deg, #00c2ff, #7000ff);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.continueButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 194, 255, 0.3);
+}
+
+.cartContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cartSummary {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.totalAmount {
+  font-weight: 600;
+  color: #00c2ff;
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #00c2ff, #7000ff);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.checkoutButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 194, 255, 0.3);
+} 

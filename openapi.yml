@@ -23,6 +23,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultListGameRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      - id: 1
+                        name: "sample-game"
+                        title: "Sample Game"
+                        description: "A sample game description"
+                        instruction: "Sample instruction"
+                        images: []
+                        items: []
+                      - id: 2
+                        name: "another-game"
+                        title: "Another Game"
+                        description: "Another game description"
+                        instruction: "Another instruction"
+                        images: []
+                        items: []
+                    message: "Games retrieved successfully"
     post:
       summary: Create a new game
       description: Creates a new game with associated images and items
@@ -42,12 +63,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data: "Game saved successfully"
+                    message: "Game created"
         '400':
           description: Invalid input
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Invalid game data provided"
   /games/id/{id}:
     get:
       summary: Get game by ID
@@ -70,12 +105,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      name: "sample-game"
+                      title: "Sample Game"
+                      description: "A sample game description"
+                      instruction: "Sample instruction"
+                      images: []
+                      items: []
+                    message: "Game retrieved successfully"
         '404':
           description: Game not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game not found with ID: 999"
   /games/{name}:
     get:
       summary: Get game by name
@@ -97,12 +153,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      name: "sample-game"
+                      title: "Sample Game"
+                      description: "A sample game description"
+                      instruction: "Sample instruction"
+                      images: []
+                      items: []
+                    message: "Game retrieved successfully"
         '404':
           description: Game not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game not found with name: nonexistent-game"
     put:
       summary: Update game by name
       description: Updates an existing game's fields by its name
@@ -129,12 +206,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      name: "sample-game"
+                      title: "Updated Game Title"
+                      description: "Updated description"
+                      instruction: "Updated instruction"
+                      images: []
+                      items: []
+                    message: "Game updated successfully"
         '404':
           description: Game not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game not found with name: nonexistent-game"
     delete:
       summary: Delete game by name
       description: Deletes a game and all its associated images and items
@@ -155,12 +253,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data: "Game deleted"
+                    message: "Game deleted successfully"
         '404':
           description: Game not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game not found with name: nonexistent-game"
 
   /images:
     post:
@@ -182,12 +294,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultImageRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      imageUrl: "https://example.com/image.jpg"
+                    message: "Image created successfully"
         '404':
           description: Game not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultImageRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game not found with name: nonexistent-game"
 
   /images/{id}:
     put:
@@ -217,12 +345,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultImageRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      imageUrl: "https://example.com/updated-image.jpg"
+                    message: "Image updated successfully"
         '404':
           description: Image not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultImageRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Image not found with ID: 999"
     delete:
       summary: Delete image
       description: Deletes an image
@@ -244,12 +388,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data: "Image deleted"
+                    message: "Image deleted successfully"
         '404':
           description: Image not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Image not found with ID: 999"
 
   /game-items:
     post:
@@ -271,12 +429,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameItemRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      name: "Premium Skin"
+                      type: "Cosmetic"
+                      region: "Global"
+                      details: "Special edition skin"
+                      price: 1000
+                    message: "Game item created successfully"
         '404':
           description: Game not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameItemRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game not found with name: nonexistent-game"
 
   /game-items/{id}:
     put:
@@ -306,12 +484,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameItemRespDto'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data:
+                      id: 1
+                      name: "Premium Skin"
+                      type: "Cosmetic"
+                      region: "Global"
+                      details: "Special edition skin"
+                      price: 1000
+                    message: "Game item updated successfully"
         '404':
           description: Game item not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultGameItemRespDto'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game item not found"
     delete:
       summary: Delete game item
       description: Deletes a game item
@@ -333,12 +531,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data: "Game item deleted"
+                    message: "Game item deleted successfully"
         '404':
           description: Game item not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResultString'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Game item not found with ID: 999"
+
+  /chat/send-message/{id}:
+    post:
+      summary: Send message to chat
+      description: Sends a message to a specific chat by ID
+      operationId: sendMessage
+      tags:
+        - Chat
+      parameters:
+        - name: id
+          in: path
+          description: Chat ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageToChatReq'
+      responses:
+        '200':
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultString'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    data: "Message sent successfully"
+                    message: "Message sent to chat 123456789"
+        '404':
+          description: Chat not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultString'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    success: false
+                    data: null
+                    message: "Chat not found with ID: 999999"
 
 components:
   schemas:
@@ -352,7 +613,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GameRespDto'
-          description: List of games
         message:
           type: string
           description: Response message
@@ -364,7 +624,6 @@ components:
           description: Indicates if the operation was successful
         data:
           $ref: '#/components/schemas/GameRespDto'
-          description: Game data
         message:
           type: string
           description: Response message
@@ -495,7 +754,6 @@ components:
           description: Indicates if the operation was successful
         data:
           $ref: '#/components/schemas/ImageRespDto'
-          description: Image data
         message:
           type: string
           description: Response message
@@ -582,7 +840,14 @@ components:
           description: Indicates if the operation was successful
         data:
           $ref: '#/components/schemas/GameItemRespDto'
-          description: Game item data
         message:
           type: string
-          description: Response message 
+          description: Response message
+    MessageToChatReq:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: The message content to be sent to chat 

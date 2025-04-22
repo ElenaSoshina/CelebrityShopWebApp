@@ -12,32 +12,37 @@ import { ShooterGames } from './components/ShooterGames/ShooterGames';
 import { GamePage } from './pages/GamePage/GamePage';
 import { Subscriptions } from './components/Subscriptions/Subscriptions';
 import { FAQ } from './components/FAQ/FAQ';
+import { CartPage } from './pages/CartPage/CartPage';
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <GameStore />
-                <SuperSellGames />
-                <GiftCards />
-                <PCGames />
-                <ShooterGames />
-                <Subscriptions />
-                <FAQ />
-              </>
-            } />
-            <Route path="/game/:name" element={<GamePage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <CartProvider>
+      <Router>
+        <div className="app">
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Hero />
+                  <GameStore />
+                  <SuperSellGames />
+                  <GiftCards />
+                  <PCGames />
+                  <ShooterGames />
+                  <Subscriptions />
+                  <FAQ />
+                </>
+              } />
+              <Route path="/game/:name" element={<GamePage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 

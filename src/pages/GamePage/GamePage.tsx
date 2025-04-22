@@ -5,6 +5,8 @@ import styles from './GamePage.module.css';
 import Select from '../../components/Select/Select';
 import { OrderModal } from '../../components/OrderModal/OrderModal';
 import { Game } from '../../types/game';
+import { useCart } from '../../context/CartContext';
+import { Notification } from '../../components/Notification/Notification';
 
 interface GameImage {
   id: number;
@@ -78,6 +80,7 @@ interface GameInfo {
 export const GamePage: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [selectedItems, setSelectedItems] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [game, setGame] = useState<GameData | null>(null);
@@ -87,6 +90,7 @@ export const GamePage: React.FC = () => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     const fetchGame = async () => {
@@ -126,9 +130,24 @@ export const GamePage: React.FC = () => {
     }));
   };
 
-  const handleBuyClick = () => {
-    if (Object.keys(selectedItems).length === 0) return;
-    setIsModalOpen(true);
+  const formatGameName = (urlName: string): string => {
+    switch (urlName) {
+      case 'brawl_stars':
+        return 'Brawl Stars';
+      // Добавьте другие игры по мере необходимости
+      default:
+        return urlName.replace(/_/g, ' ');
+    }
+  };
+
+  const handleAddToCart = (product: GameItem) => {
+    addToCart({
+      id: product.id.toString(),
+      name: product.name,
+      game: formatGameName(name || ''),
+      price: product.price
+    });
+    setShowNotification(true);
   };
 
   const handleModalClose = () => {
@@ -271,13 +290,16 @@ export const GamePage: React.FC = () => {
           </div>
           
         </div>
-        <div className={styles.actions}>
-          <button 
+        <div className={styles.buySection}>
+          <div className={styles.totalPrice}>
+            Итого: {totalPrice}₽
+          </div>
+          <button
             className={styles.buyButton}
-            onClick={handleBuyClick}
-            disabled={Object.keys(selectedItems).length === 0}
+            onClick={() => handleAddToCart(selectedProducts[0])}
+            disabled={selectedProducts.length === 0}
           >
-            Купить {totalPrice > 0 ? `за ${totalPrice}₽` : ''}
+            Добавить в корзину
           </button>
         </div>
       </div>
@@ -285,6 +307,11 @@ export const GamePage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onSubmit={handleOrderSubmit}
+      />
+      <Notification
+        message="Товар успешно добавлен в корзину"
+        isVisible={showNotification}
+        onClose={() => setShowNotification(false)}
       />
     </div>
   );

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Search } from '../Search/Search';
+import Cart from '../Cart/Cart';
+import logo from '../../logo.png'
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,24 +94,31 @@ export const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <button 
-          className={`${styles.burgerBtn} ${isMenuOpen ? styles.active : ''}`}
-          onClick={toggleMenu}
-          aria-label="Открыть меню"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <button 
-          className={styles.searchBtn}
-          onClick={toggleSearch}
-          aria-label="Поиск"
-        >
-          <div className={styles.searchIcon} />
-        </button>
+        <div className={styles.logoContainer}>
+          <img src={logo} alt="GameStore" className={styles.logo} />
+        </div>
+
+        <div className={styles.iconsContainer}>
+          <button 
+            className={styles.searchBtn}
+            onClick={toggleSearch}
+            aria-label="Поиск"
+          >
+            <div className={styles.searchIcon} />
+          </button>
+          <Cart />
+          <button 
+            className={`${styles.burgerBtn} ${isMenuOpen ? styles.active : ''}`}
+            onClick={toggleMenu}
+            aria-label="Открыть меню"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
         <nav className={`${styles.nav} ${isMenuOpen ? styles.active : ''}`}>
-          {/* Все ссылки ведут на '/' и используют onClick для управления скроллом */}
           <Link to="/" onClick={handleHomeClick}>Главная</Link>
           <Link to="/" onClick={handleCatalogClick}>Каталог</Link>
           <Link to="/" onClick={handleFaqClick}>FAQ</Link>
