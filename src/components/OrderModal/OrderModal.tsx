@@ -67,11 +67,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, onSubmi
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Отправка формы:', formData);
+      onSubmit(formData);              // ← прокидываем данные в CartPage
       setShowSuccess(true);
       setTimeout(() => {
         setShowSuccess(false);
-        onClose();
       }, 2000);
     }
   };
