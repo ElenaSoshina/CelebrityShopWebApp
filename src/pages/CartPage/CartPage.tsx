@@ -10,19 +10,19 @@ export const CartPage: React.FC = () => {
   const navigate = useNavigate();
   const { items, removeFromCart, updateQuantity } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [chatId, setChatId] = useState<string | null>(null);
+  // const [chatId, setChatId] = useState<string | null>(null);
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
    // Получаем chatId из Telegram WebApp initDataUnsafe
-   useEffect(() => {
-    const tg = (window as any).Telegram?.WebApp;
-    if (tg) {
-      const id = tg.initDataUnsafe?.user?.id?.toString() || null;
-      setChatId(id);
-    } else {
-      console.error('Telegram WebApp API не найдена');
-    }
-  }, []);
+  //  useEffect(() => {
+  //   const tg = (window as any).Telegram?.WebApp;
+  //   if (tg) {
+  //     const id = tg.initDataUnsafe?.user?.id?.toString() || null;
+  //     setChatId(id);
+  //   } else {
+  //     console.error('Telegram WebApp API не найдена');
+  //   }
+  // }, []);
 
   const formatCartItems = (items: any[]) => {
     return items.map(item => 
@@ -34,10 +34,10 @@ export const CartPage: React.FC = () => {
   };
 
   const handleOrderSubmit = async (data: { name: string; phone: string; telegram: string }) => {
-    if (!chatId) {
-      console.error('Chat ID не доступен');
-      return;
-    }
+    // if (!chatId) {
+    //   console.error('Chat ID не доступен');
+    //   return;
+    // }
 
     // Формируем текст сообщения
     const message =
@@ -51,7 +51,7 @@ export const CartPage: React.FC = () => {
     try {
       // Отправляем POST на backend
       await axios.post(
-        `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${chatId}`,
+        `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/522814078`,
         { message }
       );
       setIsModalOpen(false);
