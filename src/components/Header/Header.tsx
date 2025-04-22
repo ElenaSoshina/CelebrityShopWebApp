@@ -95,7 +95,13 @@ export const Header: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.logoContainer}>
-          <img src={logo} alt="GameStore" className={styles.logo} />
+          <img 
+            src={logo} 
+            alt="GameStore" 
+            className={styles.logo} 
+            onClick={handleHomeClick}
+            style={{ cursor: 'pointer' }}
+          />
         </div>
 
         <div className={styles.iconsContainer}>

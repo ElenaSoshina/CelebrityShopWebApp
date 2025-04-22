@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './ShooterGames.module.css';
 import { GameCard } from '../GameCard/GameCard';
 
@@ -18,6 +19,7 @@ const games = [
 export const ShooterGames: React.FC = () => {
   const [activeDot, setActiveDot] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleScroll = () => {
     if (carouselRef.current) {
@@ -39,6 +41,10 @@ export const ShooterGames: React.FC = () => {
     }
   };
 
+  const handleGameClick = (id: string) => {
+    navigate(`/game/${id}`, { state: { fromSection: 'shooters' } });
+  };
+
   return (
     <section id="shooters" className={styles.shooterGames}>
       <h2 className={styles.title}>Шутеры, стратегии</h2>
@@ -46,12 +52,16 @@ export const ShooterGames: React.FC = () => {
       <div className={styles.gamesWrapper}>
         <div className={styles.gamesCarousel} ref={carouselRef} onScroll={handleScroll}>
           {games.map(game => (
-            <GameCard
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              image={game.image}
-            />
+            <div 
+              key={game.id} 
+              className={styles.gameCard}
+              onClick={() => handleGameClick(game.id)}
+            >
+              <div className={styles.imageWrapper}>
+                <img src={game.image} alt={game.name} />
+              </div>
+              <h3 className={styles.gameName}>{game.name}</h3>
+            </div>
           ))}
         </div>
         <div className={styles.pagination}>

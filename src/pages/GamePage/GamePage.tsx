@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from './GamePage.module.css';
 import Select from '../../components/Select/Select';
 import { OrderModal } from '../../components/OrderModal/OrderModal';
@@ -46,40 +46,15 @@ interface GameInfo {
   items: GameItem[];
 }
 
-// Моковые данные для тестирования
-// const mockGameInfo: GameInfo = {
-//   title: "Epic Adventure",
-//   description: "Embark on an epic adventure filled with quests and surprises.",
-//   instruction: "Follow the map and defeat the dragons to save the kingdom.",
-//   images: [
-//     {
-//       imageUrl: "/assets/images/pc-games/delta-force.jpg"
-//     },
-//     {
-//       imageUrl: "/assets/images/pc-games/valorant.jpg"
-//     }
-//   ],
-//   items: [
-//     {
-//       name: "Magic Sword",
-//       type: "Weapon",
-//       region: "Enchanted Forest",
-//       details: "A sword imbued with magical powers.",
-//       price: 250
-//     },
-//     {
-//       name: "Healing Potion",
-//       type: "Consumable",
-//       region: "Village Market",
-//       details: "Restores health and energy.",
-//       price: 50
-//     }
-//   ]
-// };
+interface LocationState {
+  fromSection?: string;
+}
 
 export const GamePage: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as LocationState;
   const { addToCart } = useCart();
   const [selectedItems, setSelectedItems] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,6 +66,19 @@ export const GamePage: React.FC = () => {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [showNotification, setShowNotification] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleBack = () => {
+    const fromSection = state?.fromSection;
+    if (fromSection) {
+      navigate('/', { state: { scrollTo: fromSection } });
+    } else {
+      navigate(-1);
+    }
+  };
 
   useEffect(() => {
     const fetchGame = async () => {
@@ -140,12 +128,14 @@ export const GamePage: React.FC = () => {
     }
   };
 
-  const handleAddToCart = (product: GameItem) => {
-    addToCart({
-      id: product.id.toString(),
-      name: product.name,
-      game: formatGameName(name || ''),
-      price: product.price
+  const handleAddToCart = (products: GameItem[]) => {
+    products.forEach(product => {
+      addToCart({
+        id: product.id.toString(),
+        name: product.name,
+        game: formatGameName(name || ''),
+        price: product.price
+      });
     });
     setShowNotification(true);
   };
@@ -228,7 +218,7 @@ export const GamePage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
+      <button className={styles.backButton} onClick={handleBack}>
         ← 
       </button>
       <div className={styles.content}>
@@ -296,7 +286,7 @@ export const GamePage: React.FC = () => {
           </div>
           <button
             className={styles.buyButton}
-            onClick={() => handleAddToCart(selectedProducts[0])}
+            onClick={() => handleAddToCart(selectedProducts)}
             disabled={selectedProducts.length === 0}
           >
             Добавить в корзину

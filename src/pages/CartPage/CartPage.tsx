@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { OrderModal } from '../../components/OrderModal/OrderModal';
 import axios from 'axios';
 import styles from './CartPage.module.css';
@@ -11,7 +12,14 @@ export const CartPage: React.FC = () => {
   const { items, removeFromCart, updateQuantity } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [chatId, setChatId] = useState<string | null>(null);
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const [promoCode, setPromoCode] = useState('');
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [promoError, setPromoError] = useState('');
+  const [discountPercent, setDiscountPercent] = useState(0);
+  // Calculate raw total
+  const rawTotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Apply discount if any
+  const discountedTotal = Math.round(rawTotal * (1 - discountPercent / 100));
 
   useEffect(() => {
     const tg = (window as any).Telegram?.WebApp;
@@ -30,6 +38,18 @@ export const CartPage: React.FC = () => {
     ).join('\n');
   };
 
+  const handlePromoApply = () => {
+    if (promoCode.trim().toLowerCase() === 'firstorder') {
+      setDiscountPercent(3);
+      setPromoApplied(true);
+      setPromoError('');
+    } else {
+      setDiscountPercent(0);
+      setPromoApplied(false);
+      setPromoError('Неверный промокод');
+    }
+  };
+
   const handleOrderSubmit = async (data: { name: string; phone: string; telegram: string }) => {
     if (!chatId) {
       console.error('Chat ID не доступен, нельзя отправить сообщение');
@@ -37,22 +57,24 @@ export const CartPage: React.FC = () => {
     }
 
     const adminChatId = '522814078';
-    const total = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const totalToSend = discountedTotal;
 
     // 1) Сообщение администратору — полная информация
     const adminMessage =
-        `🛒 Новый заказ!\n\n` +
-        `👤 Имя: ${data.name}\n` +
-        `📱 Телефон: ${data.phone}\n` +
-        `📨 Telegram: ${data.telegram}\n\n` +
-        `📝 Заказ:\n${formatCartItems(items)}\n` +
-        `💵 Итого: ${total} ₽`;
+      `🛒 Новый заказ!\n\n` +
+      `👤 Имя: ${data.name}\n` +
+      `📱 Телефон: ${data.phone}\n` +
+      `📨 Telegram: ${data.telegram}\n\n` +
+      `📝 Заказ:\n${formatCartItems(items)}\n` +
+      (promoApplied ? `🎟 Промокод: ${promoCode} (скидка ${discountPercent}%)\n` : '') +
+      `💵 Итого: ${totalToSend} ₽`;
 
     // 2) Сообщение пользователю — только корзина
     const userMessage =
-        `Спасибо за заказ! Вот ваш заказ:\n\n` +
-        `${formatCartItems(items)}\n` +
-        `💵 Итого: ${total} ₽`;
+      `Спасибо за заказ! Вот ваш заказ:\n\n` +
+      `${formatCartItems(items)}\n` +
+      (promoApplied ? `🎟 Промокод: ${promoCode} (скидка ${discountPercent}%)\n` : '') +
+      `💵 Итого: ${totalToSend} ₽`;
 
     try {
       await axios.post(
@@ -73,6 +95,7 @@ export const CartPage: React.FC = () => {
       console.error('Ошибка отправки сообщения:', err);
     }
   };
+
 
   return (
     <div className={styles.cartPage}>
@@ -127,10 +150,39 @@ export const CartPage: React.FC = () => {
                 </div>
               ))}
             </div>
+
+            <div className={styles.promoSection}>
+              <div className={styles.promoInputWrapper}>
+                <input
+                  type="text"
+                  placeholder="Введите промокод"
+                  value={promoCode}
+                  onChange={e => setPromoCode(e.target.value)}
+                  className={styles.promoInput}
+                />
+                <button
+                  className={styles.promoButton}
+                  onClick={handlePromoApply}
+                >
+                  <ArrowForwardIosIcon />
+                </button>
+              </div>
+              {promoApplied && (
+                <div className={styles.promoInfo}>
+                  Применена скидка {discountPercent}%
+                </div>
+              )}
+              {promoError && (
+                <div className={styles.promoError}>
+                  {promoError}
+                </div>
+              )}
+            </div>
+
             <div className={styles.cartSummary}>
               <div className={styles.totalRow}>
-                <span>Итого:</span>
-                <span className={styles.totalAmount}>{total} ₽</span>
+                <span>Итого{promoApplied ? ' (со скидкой)' : ''}:</span>
+                <span className={styles.totalAmount}>{discountedTotal} ₽</span>
               </div>
               <button 
                 className={styles.checkoutButton}

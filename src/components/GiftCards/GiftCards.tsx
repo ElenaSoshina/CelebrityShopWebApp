@@ -30,7 +30,7 @@ export const GiftCards: React.FC = () => {
   };
 
   const handleCardClick = (id: string) => {
-    navigate(`/game/${id}`);
+    navigate(`/game/${id}`, { state: { fromSection: 'giftcards' } });
   };
 
   useEffect(() => {

@@ -59,7 +59,7 @@ export const PCGames: React.FC = () => {
   };
 
   const handleGameClick = (id: string) => {
-    navigate(`/game/${id}`);
+    navigate(`/game/${id}`, { state: { fromSection: 'pcgames' } });
   };
 
   useEffect(() => {

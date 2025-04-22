@@ -338,4 +338,84 @@
 .checkoutButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 194, 255, 0.3);
+}
+
+.promoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.promoInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.promoInput {
+  flex: 0.7;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.9rem;
+}
+
+.promoInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.promoInput:focus {
+  outline: none;
+  border-color: #00c2ff;
+}
+
+.promoButton {
+  width: 120px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.promoButton::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, #00c2ff, #7000ff);
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.promoButton:hover {
+  transform: translateY(-2px);
+}
+
+.promoInfo {
+  color: #00c2ff;
+  font-size: 0.9rem;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.promoError {
+  color: #ff4444;
+  font-size: 0.9rem;
+  text-align: left;
+  padding-left: 10px;
 } 
