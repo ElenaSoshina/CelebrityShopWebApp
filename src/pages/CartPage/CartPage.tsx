@@ -57,7 +57,7 @@ export const CartPage: React.FC = () => {
     try {
       await axios.post(
           `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${adminChatId}`,
-          { message:adminMessage }
+          { message: adminMessage }
       );
 
       await axios.post(
