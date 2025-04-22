@@ -37,19 +37,35 @@ export const CartPage: React.FC = () => {
       return;
     }
 
-    const message =
+    const adminChatId = '522814078';
+    const total = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+    // 1) Сообщение администратору — полная информация
+    const adminMessage =
         `🛒 Новый заказ!\n\n` +
         `👤 Имя: ${data.name}\n` +
         `📱 Телефон: ${data.phone}\n` +
         `📨 Telegram: ${data.telegram}\n\n` +
-        `📝 Заказ:\n\n${formatCartItems(items)}\n` +
-        `💵 Итого: ${items.reduce((sum, i) => sum + i.price * i.quantity, 0)} ₽`;
+        `📝 Заказ:\n${formatCartItems(items)}\n` +
+        `💵 Итого: ${total} ₽`;
+
+    // 2) Сообщение пользователю — только корзина
+    const userMessage =
+        `Спасибо за заказ! Вот ваш заказ:\n\n` +
+        `${formatCartItems(items)}\n` +
+        `💵 Итого: ${total} ₽`;
 
     try {
       await axios.post(
-          `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${chatId}`,
-          { message }
+          `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${adminChatId}`,
+          { adminMessage }
       );
+
+      await axios.post(
+          `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${chatId}`,
+          { message: userMessage }
+      );
+
       setIsModalOpen(false);
       // закрываем WebApp
       const tg = (window as any).Telegram?.WebApp;
