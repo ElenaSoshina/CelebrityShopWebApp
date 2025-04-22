@@ -16,9 +16,8 @@ export const CartPage: React.FC = () => {
   useEffect(() => {
     const tg = (window as any).Telegram?.WebApp;
     if (tg?.initDataUnsafe?.user?.id) {
-      setChatId(tg.initDataUnsafe.user.id);
-    } else {
-      console.warn('Telegram WebApp API или user.id недоступны');
+      setChatId(tg.initDataUnsafe.user.id.toString());
+      tg.ready?.();
     }
   }, []);
 
