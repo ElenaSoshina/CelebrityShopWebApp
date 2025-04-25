@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  celebrity-strike-frontend:
+    image: "${DOCKERHUB_REPO}:${VERSION}"
+    container_name: celebrity-strike-frontend
+    restart: always
+    environment:
+      - VIRTUAL_HOST=app.celebrity-strike.duckdns.org
+      - LETSENCRYPT_HOST=app.celebrity-strike.duckdns.org
+      - LETSENCRYPT_EMAIL=soshinaalena6415@gmail.com
+    expose:
+      - "2080"
+    networks:
+      - celebrity_network
+
+networks:
+  celebrity_network:
+    external: true
