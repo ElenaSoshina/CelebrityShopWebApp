@@ -96,17 +96,6 @@ jobs:
           strip_components: 1
 
 
-      # 9) Upload frontend compose
-      - name: Upload docker-compose-frontend.yml
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
-          port: 22
-          source: docker/docker-compose-frontend.yml
-          target: /docker/
-
       # 10) Upload nginx vhost for frontend
       - name: Upload nginx vhost config for frontend
         uses: appleboy/scp-action@master
