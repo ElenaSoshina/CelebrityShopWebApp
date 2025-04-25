@@ -14,27 +14,35 @@ export const Subscriptions: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  /**
+   * При горизонтальной прокрутке карусели определяем «активную» точку
+   */
   const handleScroll = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      const maxScroll = scrollWidth - clientWidth;
-      const dotIndex = Math.round((scrollLeft / maxScroll) * (subscriptions.length - 1));
-      setActiveDot(dotIndex);
-    }
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    const dotIndex = Math.round((scrollLeft / maxScroll) * (subscriptions.length - 1));
+    setActiveDot(dotIndex);
   };
 
+  /**
+   * Плавно прокручиваем карусель к нужной позиции по клику на точку пагинации
+   */
   const scrollToPosition = (dotIndex: number) => {
-    if (carouselRef.current) {
-      const { scrollWidth, clientWidth } = carouselRef.current;
-      const maxScroll = scrollWidth - clientWidth;
-      const scrollPosition = (dotIndex / (subscriptions.length - 1)) * maxScroll;
-      carouselRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-    }
+    if (!carouselRef.current) return;
+    const { scrollWidth, clientWidth } = carouselRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    const scrollPosition = (dotIndex / (subscriptions.length - 1)) * maxScroll;
+    carouselRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' });
   };
 
+  /**
+   * Переход на страницу игры + передаём откуда пришли (секция + карточка)
+   */
   const handleCardClick = (slug: string) => {
-    navigate(`/game/${slug}`, { state: { fromSection: 'subscriptions' } });
+    navigate(`/game/${slug}`, { state: { fromSection: 'subscriptions', fromCardId: slug } });
   };
+
 
   return (
     <section id="subscriptions" className={styles.subscriptions}>
@@ -49,6 +57,7 @@ export const Subscriptions: React.FC = () => {
         >
           {subscriptions.map(sub => (
             <div
+                id={`card-${sub.id}`}
               key={sub.id}
               onClick={() => handleCardClick(sub.id)}
               style={{ cursor: 'pointer' }}
