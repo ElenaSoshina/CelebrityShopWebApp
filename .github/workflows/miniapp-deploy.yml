@@ -91,9 +91,10 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.REMOTE_SSH_KEY }}
           port: 22
-          script: |
-            mkdir -p /docker
-            mkdir -p /nginx/vhost.d
+          source: docker/*
+          target: /docker/
+          strip_components: 1
+
 
       # 9) Upload frontend compose
       - name: Upload docker-compose-frontend.yml
