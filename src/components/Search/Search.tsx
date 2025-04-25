@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.css';
 
 interface SearchProps {
@@ -6,30 +7,55 @@ interface SearchProps {
   onClose: () => void;
 }
 
-const allGames = [
+interface GameItem {
+  id: string;
+  name: string;
+  section: string;
+  sectionId: string;
+}
+
+const allGames: GameItem[] = [
   // SuperSell games
-  { name: 'Brawl Stars', section: 'SuperSell' },
-  { name: 'Clash Royale', section: 'SuperSell' },
-  { name: 'Clash of Clans', section: 'SuperSell' },
-  { name: 'Hay Day', section: 'SuperSell' },
-  { name: 'Boom Beach', section: 'SuperSell' },
+  { id: 'brawl_stars', name: 'Brawl Stars', section: 'SuperSell', sectionId: 'supersell' },
+  { id: 'clash_royale', name: 'Clash Royale', section: 'SuperSell', sectionId: 'supersell' },
+  { id: 'clash_of_clans', name: 'Clash of Clans', section: 'SuperSell', sectionId: 'supersell' },
+  { id: 'squad_buster', name: 'Squad Busters', section: 'SuperSell', sectionId: 'supersell' },
+  { id: 'mo_co', name: 'Mo-Co', section: 'SuperSell', sectionId: 'supersell' },
   
   // PC games
-  { name: 'Marvel Rivals', section: 'PC' },
-  { name: 'Delta Force', section: 'PC' },
-  { name: 'Arena Breakout: Infinite', section: 'PC' },
-  { name: 'PUBG Battleground', section: 'PC' },
+  { id: 'marvel_rivals', name: 'Marvel Rivals', section: 'Компьютерные игры', sectionId: 'pcgames' },
+  { id: 'delta_force', name: 'Delta Force', section: 'Компьютерные игры', sectionId: 'pcgames' },
+  { id: 'arena_breakout', name: 'Arena Breakout: Infinite', section: 'Компьютерные игры', sectionId: 'pcgames' },
+  { id: 'pubg_battlegrounds', name: 'PUBG Battlegrounds', section: 'Компьютерные игры', sectionId: 'pcgames' },
+  { id: 'fortnite', name: 'Fortnite', section: 'Компьютерные игры', sectionId: 'pcgames' },
+  { id: 'valorant', name: 'Valorant', section: 'Компьютерные игры', sectionId: 'pcgames' },
+  { id: 'roblox', name: 'Roblox', section: 'Компьютерные игры', sectionId: 'pcgames' },
 
-  // Game Shop
-  { name: 'Roblox', section: 'Game Shop' },
-  { name: 'Minecraft', section: 'Game Shop' },
-  { name: 'GTA V', section: 'Game Shop' },
-  { name: 'CS GO', section: 'Game Shop' }
+  // Shooter games
+  { id: 'blood_strike', name: 'Blood Strike', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'pubg_mobile', name: 'PUBG MOBILE', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'pubg_new_state', name: 'PUBG NEW STATE', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'free_fire', name: 'Free Fire', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'lost_light', name: 'Lost Light', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'arena_breakout_shooter', name: 'Arena Breakout', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'standoff2', name: 'Standoff 2', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 't3_arena', name: 'T3 Arena', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'mobile_legends', name: 'Mobile Legends RU', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+  { id: 'genshin_impact', name: 'Genshin Impact', section: 'Шутеры, стратегии', sectionId: 'shooters' },
+
+  // Subscriptions
+  { id: 'telegram', name: 'Telegram', section: 'Подписки', sectionId: 'subscriptions' },
+  { id: 'likee', name: 'LIKE', section: 'Подписки', sectionId: 'subscriptions' },
+  { id: 'steam', name: 'Steam', section: 'Подписки', sectionId: 'subscriptions' },
+
+  // Gift Cards
+  { id: 'apple_store', name: 'Apple Store/iTunes', section: 'Подарочные карты', sectionId: 'giftcards' }
 ];
 
 export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<typeof allGames>([]);
+  const [searchResults, setSearchResults] = useState<GameItem[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,6 +90,12 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
     setSearchQuery(e.target.value);
   };
 
+  const handleGameClick = (game: GameItem) => {
+    navigate(`/game/${game.id}`, { state: { fromSection: game.sectionId } });
+    setSearchQuery('');
+    onClose();
+  };
+
   return (
     <div className={`${styles.searchContainer} ${isOpen ? styles.active : ''}`} ref={searchRef}>
       <input
@@ -72,15 +104,26 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
         placeholder="Поиск игр..."
         value={searchQuery}
         onChange={handleSearch}
+        autoFocus={isOpen}
       />
-      {searchResults.length > 0 && (
+      {searchQuery.trim() !== '' && (
         <div className={styles.searchResults}>
-          {searchResults.map((game, index) => (
-            <div key={index} className={styles.searchItem}>
-              <span className={styles.gameName}>{game.name}</span>
-              <span className={styles.gameSection}>{game.section}</span>
+          {searchResults.length > 0 ? (
+            searchResults.map((game, index) => (
+              <div 
+                key={index} 
+                className={styles.searchItem}
+                onClick={() => handleGameClick(game)}
+              >
+                <span className={styles.gameName}>{game.name}</span>
+                <span className={styles.gameSection}>{game.section}</span>
+              </div>
+            ))
+          ) : (
+            <div className={styles.noResults}>
+              <span>Ничего не найдено</span>
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>
