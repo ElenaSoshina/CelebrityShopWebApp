@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputMask from 'react-input-mask';
+import axios from 'axios';
 import styles from './QuestionForm.module.css';
 
 interface QuestionFormProps {
@@ -21,6 +22,18 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
     telegram: '',
     question: ''
   });
+  const [chatId, setChatId] = useState<string | null>(null);
+
+  // массив ID администраторов - такой же как в CartPage
+  const adminChatIds: string[] = ['522814078', '6684292595'];
+
+  useEffect(() => {
+    const tg = (window as any).Telegram?.WebApp;
+    if (tg?.initDataUnsafe?.user?.id) {
+      setChatId(tg.initDataUnsafe.user.id.toString());
+      tg.ready?.();
+    }
+  }, []);
 
   const validateForm = () => {
     const newErrors = {
@@ -55,15 +68,71 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
     return !Object.values(newErrors).some(error => error);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Отправка формы:', formData);
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-        onClose();
-      }, 2000);
+      try {
+        await sendFormData();
+        setShowSuccess(true);
+        setTimeout(() => {
+          setShowSuccess(false);
+          resetForm();
+          onClose();
+        }, 2000);
+      } catch (error) {
+        console.error('Ошибка при отправке формы:', error);
+      }
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      phone: '',
+      telegram: '',
+      question: ''
+    });
+  };
+
+  const sendFormData = async () => {
+    if (!chatId) {
+      console.error('Chat ID не доступен, нельзя отправить сообщение');
+      return;
+    }
+
+    // 1) Сообщение администратору — полная информация
+    const adminMessage =
+      `🔔 Заявка на консультацию!\n\n` +
+      `👤 Имя: ${formData.name}\n` +
+      `📱 Телефон: ${formData.phone}\n` +
+      `📨 Telegram: ${formData.telegram}\n\n` +
+      `❓ Вопрос:\n${formData.question}`;
+
+    // 2) Сообщение пользователю — подтверждение
+    const userMessage =
+      `Спасибо за вашу заявку!\n\n` +
+      `Мы получили ваш вопрос и скоро свяжемся с вами.\n\n` +
+      `📝 Ваш вопрос:\n${formData.question}`;
+
+    try {
+      // отправка сообщений администраторам
+      await Promise.all(
+        adminChatIds.map(id =>
+          axios.post(
+            `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${id}`,
+            { message: adminMessage }
+          )
+        )
+      );
+
+      // отправка сообщения пользователю
+      await axios.post(
+        `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${chatId}`,
+        { message: userMessage }
+      );
+    } catch (err) {
+      console.error('Ошибка отправки сообщения:', err);
+      throw err;
     }
   };
 
