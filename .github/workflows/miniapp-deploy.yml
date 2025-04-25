@@ -64,7 +64,7 @@ jobs:
           cat > Dockerfile << 'EOL'
           FROM nginx:alpine
           COPY build/ /usr/share/nginx/html
-          EXPOSE 80
+          EXPOSE 18081
           CMD ["nginx", "-g", "daemon off;"]
           EOL
 
