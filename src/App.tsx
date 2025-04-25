@@ -1,5 +1,5 @@
 // src/App.tsx - Main application component
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { Header } from './components/Header/Header';
@@ -16,6 +16,20 @@ import { CartPage } from './pages/CartPage/CartPage';
 import { CartProvider } from './context/CartContext';
 
 function App() {
+  const [chatId, setChatId] = useState('');
+
+  useEffect(() => {
+    const tg = (window as any).Telegram?.WebApp;
+    if (tg?.initDataUnsafe?.user?.id) {
+      setChatId(tg.initDataUnsafe.user.id.toString());
+      tg.ready?.();
+      tg.setSettings?.({ allow_vertical_swipe: false });
+    }
+  }, []);
+
+  const tg = (window as any).Telegram?.WebApp;
+  tg?.close();
+
   return (
     <CartProvider>
       <Router>
