@@ -14,6 +14,7 @@ import { Subscriptions } from './components/Subscriptions/Subscriptions';
 import { FAQ } from './components/FAQ/FAQ';
 import { CartPage } from './pages/CartPage/CartPage';
 import { CartProvider } from './context/CartContext';
+import { HomePage } from './pages/HomePage/HomePage'; 
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Header />
           <main>
             <Routes>
-              <Route path="/" element={
+              {/* <Route path="/" element={
                 <>
                   <Hero />
                   <GameStore />
@@ -34,7 +35,8 @@ function App() {
                   <Subscriptions />
                   <FAQ />
                 </>
-              } />
+              } /> */}
+              <Route path="/" element={<HomePage />} />
               <Route path="/game/:name" element={<GamePage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
