@@ -5,6 +5,7 @@ services:
     container_name: celebrity-strike-frontend
     restart: always
     environment:
+      - PORT=18081
       - VIRTUAL_PORT=18081
       - VIRTUAL_HOST=app.celebrity-strike.duckdns.org
       - LETSENCRYPT_HOST=app.celebrity-strike.duckdns.org
