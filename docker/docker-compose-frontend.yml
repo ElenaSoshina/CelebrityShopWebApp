@@ -9,7 +9,7 @@ services:
       - LETSENCRYPT_HOST=app.celebrity-strike.duckdns.org
       - LETSENCRYPT_EMAIL=soshinaalena6415@gmail.com
     expose:
-      - "2080"
+      - "18081"
     networks:
       - celebrity_network
 
