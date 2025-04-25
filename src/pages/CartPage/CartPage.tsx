@@ -30,6 +30,7 @@ export const CartPage: React.FC = () => {
     if (tg?.initDataUnsafe?.user?.id) {
       setChatId(tg.initDataUnsafe.user.id.toString());
       tg.ready?.();
+      tg.setSettings?.({ allow_vertical_swipe: false })
     }
   }, []);
 
