@@ -17,17 +17,17 @@ import { CartProvider } from './context/CartContext';
 
 function App() {
 
-  // const tg = (window as any).Telegram?.WebApp;
-  // tg?.close();
+  const tg = (window as any).Telegram?.WebApp;
+  tg?.close();
 
-  useEffect(() => {
-    const tg = (window as any).Telegram?.WebApp;
-    if (tg) {
-      tg.ready?.();
-      tg.setSettings?.({ allow_vertical_swipe: false });
-      console.log('✅ allow_vertical_swipe set to false');
-    }
-  }, []);
+  // useEffect(() => {
+  //   const tg = (window as any).Telegram?.WebApp;
+  //   if (tg) {
+  //     tg.ready?.();
+  //     tg.setSettings?.({ allow_vertical_swipe: false });
+  //     console.log('✅ allow_vertical_swipe set to false');
+  //   }
+  // }, []);
 
   return (
     <CartProvider>
