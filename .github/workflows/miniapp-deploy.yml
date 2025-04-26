@@ -61,12 +61,6 @@ jobs:
       # 5) Generate Dockerfile
       - name: Create Dockerfile
         run: |
-#          cat > Dockerfile << 'EOL'
-#          FROM nginx:alpine
-#          COPY build/ /usr/share/nginx/html
-#          EXPOSE 18081
-#          CMD ["nginx", "-g", "daemon off;"]
-#          EOL
           cat > Dockerfile << 'EOL'
           FROM nginx:alpine
           COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
@@ -74,7 +68,6 @@ jobs:
           EXPOSE 18081
           CMD ["nginx", "-g", "daemon off;"]
           EOL
-
 
       # 6) DockerHub login
       - name: Login to Docker Hub
