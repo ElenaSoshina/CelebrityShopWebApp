@@ -1,10 +1,9 @@
-# .github/workflows/frontend-ci-cd.yml
 name: Frontend CI/CD Pipeline
 
 on:
   push:
-    branches: [ 'test' ]
-    tags: [ 'v*' ]
+    branches: ["test"]
+    tags: ["v*"]
   workflow_dispatch:
 
 concurrency:
@@ -12,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Ваш репозиторий Docker Hub для фронтенда
+  # Docker Hub repo for the frontend image
   DOCKERHUB_REPO: normat/celebrity-strike-frontend
 
 jobs:
@@ -35,8 +34,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       # 4) Install & Build
       - name: Install dependencies
@@ -64,7 +63,7 @@ jobs:
           cat > Dockerfile << 'EOL'
           FROM nginx:alpine
           COPY build/ /usr/share/nginx/html
-          EXPOSE 18081
+          EXPOSE 80
           CMD ["nginx", "-g", "daemon off;"]
           EOL
 
@@ -83,30 +82,7 @@ jobs:
           push: true
           tags: ${{ env.DOCKERHUB_REPO }}:${{ env.VERSION }}
 
-      - name: Upload nginx docker config for frontend
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
-          port: 22
-          source: docker/*
-          target: /docker/
-          strip_components: 1
-
-      # 10) Upload nginx vhost for frontend
-      - name: Upload nginx vhost config for frontend
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
-          port: 22
-          source: nginx/vhost.d/*
-          target: /nginx/vhost.d/
-          strip_components: 2
-
-      # 11) Deploy on remote
+      # 8) Deploy on remote
       - name: Deploy frontend on remote
         uses: appleboy/ssh-action@master
         env:
@@ -119,20 +95,12 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.REMOTE_SSH_KEY }}
           port: 22
-          envs: "VERSION,DOCKERHUB_REPO,DOCKERHUB_USERNAME,DOCKERHUB_TOKEN"
+          envs: VERSION,DOCKERHUB_REPO,DOCKERHUB_USERNAME,DOCKERHUB_TOKEN
           script: |
             set -e
-
-            # Login to Docker Hub
             echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-
-            # Ensure network
             docker network create celebrity_network || true
-
-            # Pull & launch frontend stack
             docker pull "${DOCKERHUB_REPO}:${VERSION}"
             cd /docker
             docker compose -f docker-compose-frontend.yml up -d --pull always
-
-            # Cleanup old images
             docker image prune -f
