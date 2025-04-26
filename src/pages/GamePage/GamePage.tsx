@@ -84,7 +84,7 @@ export const GamePage: React.FC = () => {
     const fetchGame = async () => {
       try {
         setLoading(true);
-        const response = await axios.get<ApiResponse>(`https://celebrity-strike.duckdns.org/api/v1/games/${name}`, {
+        const response = await axios.get<ApiResponse>(`https://backend.celebrity-miniapp.duckdns.org/api/v1/games/${name}`, {
           headers: {
             'Accept': 'application/json',
             // 'Content-Type': 'application/json'

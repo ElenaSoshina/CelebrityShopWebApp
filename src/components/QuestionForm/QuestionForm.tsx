@@ -119,7 +119,7 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
       await Promise.all(
         adminChatIds.map(id =>
           axios.post(
-            `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${id}`,
+            `https://backend.celebrity-miniapp.duckdns.org/api/v1/chat/send-message/${id}`,
             { message: adminMessage }
           )
         )
@@ -127,7 +127,7 @@ export const QuestionForm: React.FC<QuestionFormProps> = ({ isOpen, onClose }) =
 
       // отправка сообщения пользователю
       await axios.post(
-        `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${chatId}`,
+        `https://backend.celebrity-miniapp.duckdns.org/api/v1/chat/send-message/${chatId}`,
         { message: userMessage }
       );
     } catch (err) {
