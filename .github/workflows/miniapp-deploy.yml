@@ -53,7 +53,7 @@ jobs:
 
       - name: Create production env file
         run: |
-          echo "REACT_APP_API_URL=https://api.celebrity-strike.duckdns.org/api/v1" > .env.production
+          echo "REACT_APP_API_URL=https://backend.celebrity-miniapp.duckdns.org/api/v1" > .env.production
 
       - name: Build production bundle
         run: CI=false npm run build
