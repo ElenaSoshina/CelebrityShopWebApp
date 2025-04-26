@@ -1,17 +1,26 @@
 version: '3.8'
+
 services:
   celebrity-strike-frontend:
     image: "${DOCKERHUB_REPO}:${VERSION}"
     container_name: celebrity-strike-frontend
     restart: always
+
     environment:
-      - PORT=18081
-      - VIRTUAL_PORT=18081
+      # nginx-proxy должен заходить внутрь контейнера на 80
+      - VIRTUAL_PORT=80
       - VIRTUAL_HOST=app.celebrity-strike.duckdns.org
       - LETSENCRYPT_HOST=app.celebrity-strike.duckdns.org
       - LETSENCRYPT_EMAIL=soshinaalena6415@gmail.com
+      # строка PORT тут React-у не нужна, можно удалить или оставить как info
+      # - PORT=18081
+
     expose:
-      - "18081"
+      - "80"          # внутренний порт, по которому слушает nginx
+
+    ports:
+      - "18081:80"    # наружу 18081 → внутрь 80  ← вот ключевая строка!
+
     networks:
       - celebrity_network
 
