@@ -63,7 +63,7 @@ jobs:
           cat > Dockerfile << 'EOL'
           FROM nginx:alpine
           COPY build/ /usr/share/nginx/html
-          EXPOSE 80
+          EXPOSE 18081
           CMD ["nginx", "-g", "daemon off;"]
           EOL
 
@@ -82,7 +82,18 @@ jobs:
           push: true
           tags: ${{ env.DOCKERHUB_REPO }}:${{ env.VERSION }}
 
-      # 8) Deploy on remote
+      - name: Upload nginx docker config for frontend
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.REMOTE_SSH_KEY }}
+          port: 22
+          source: docker/*
+          target: /docker/
+          strip_components: 1
+
+      # 11) Deploy on remote
       - name: Deploy frontend on remote
         uses: appleboy/ssh-action@master
         env:
