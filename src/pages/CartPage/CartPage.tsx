@@ -85,7 +85,7 @@ export const CartPage: React.FC = () => {
       await Promise.all(
           adminChatIds.map(id =>
               axios.post(
-                  `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${id}`,
+                  `https://backend.celebrity-miniapp.duckdns.org/api/v1/chat/send-message/${id}`,
                   { message: adminMessage }
               )
           )
@@ -93,7 +93,7 @@ export const CartPage: React.FC = () => {
 
       // отправка сообщения пользователю
       await axios.post(
-          `https://celebrity-strike.duckdns.org/api/v1/chat/send-message/${chatId}`,
+          `https://backend.celebrity-miniapp.duckdns.org/api/v1/chat/send-message/${chatId}`,
           { message: userMessage }
       );
 
