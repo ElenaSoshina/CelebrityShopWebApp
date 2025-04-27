@@ -44,7 +44,7 @@ export const CartPage: React.FC = () => {
   };
 
   const handlePromoApply = () => {
-    if (promoCode.trim().toLowerCase() === 'firstorder') {
+    if (promoCode.trim().toLowerCase() === 'cels20') {
       setDiscountPercent(3);
       setPromoApplied(true);
       setPromoError('');
