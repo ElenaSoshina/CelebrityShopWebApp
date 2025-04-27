@@ -45,7 +45,7 @@ export const CartPage: React.FC = () => {
 
   const handlePromoApply = () => {
     if (promoCode.trim().toLowerCase() === 'cels20') {
-      setDiscountPercent(3);
+      setDiscountPercent(5);
       setPromoApplied(true);
       setPromoError('');
     } else {
@@ -75,7 +75,7 @@ export const CartPage: React.FC = () => {
 
     // 2) Сообщение пользователю — только корзина
     const userMessage =
-        `Спасибо за заказ! Вот ваш заказ:\n\n` +
+        `Спасибо за заказ! Ваши товары:\n\n` +
         `${formatCartItems(items)}\n` +
         (promoApplied ? `🎟 Промокод: ${promoCode} (скидка ${discountPercent}%)\n` : '') +
         `💵 Итого: ${totalToSend} ₽`;
