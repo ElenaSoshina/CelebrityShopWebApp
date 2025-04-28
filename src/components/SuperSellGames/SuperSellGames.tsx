@@ -41,7 +41,7 @@ export const SuperSellGames: React.FC = () => {
 
   return (
     <section id="supersell" className={styles.superSellGames}>
-      <h2 className={styles.title}>SuperSell игры</h2>
+      <h2 className={styles.title}>SuperCell игры</h2>
       <div className={styles.gamesWrapper}>
         <div className={styles.gamesCarousel} ref={gamesRef} onScroll={handleScroll}>
           {games.map(game => (
